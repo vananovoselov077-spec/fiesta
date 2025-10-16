@@ -344,6 +344,98 @@
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
         }
 
+        /* Стили для диджеев */
+        .dj-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .dj-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .dj-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .dj-card:hover::before {
+            opacity: 1;
+        }
+
+        .dj-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 128, 0.3);
+        }
+
+        .dj-name {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .dj-alias {
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .dj-info {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .dj-style {
+            display: inline-block;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+        }
+
+        .dj-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--neon-purple);
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
         /* Кастомный скроллбар */
         ::-webkit-scrollbar {
             width: 8px;
@@ -390,6 +482,10 @@
             .main {
                 padding: 0 1rem 2rem;
             }
+
+            .dj-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -402,6 +498,7 @@
         <nav class="nav">
             <img src="https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0" alt="ФИЕСТА" class="logo">
             <a href="#upcoming">Ближайшие</a>
+            <a href="#djs">Наши диджеи</a>
             <a href="#past">Прошедшие</a>
             <a href="#gallery">Галерея</a>
             <a href="#contacts">Контакты</a>
@@ -435,6 +532,40 @@
                     <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
                     
                     <button class="btn">🎫 КУПИТЬ БИЛЕТ</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Наши диджеи -->
+        <section id="djs" class="section">
+            <h2 class="section-title">Наши диджеи</h2>
+            <div class="dj-grid">
+                <!-- TRPMLY -->
+                <div class="dj-card">
+                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
+                        T
+                    </div>
+                    <h3 class="dj-name">TRPMLY</h3>
+                    <div class="dj-alias">Трамплин</div>
+                    <p class="dj-info">Диджей BUSHIDO ZHO,молодая легенда томских тусовок!.</p>
+                    <p class="dj-info"><strong>Стиль:</strong> Умеет играть всё</p>
+                    <div class="dj-style">⚡ Энергичный бит</div>
+                    <div class="dj-style">🎛️ Чистый звук</div>
+                    <div class="dj-style">🔥 Горячие миксы</div>
+                </div>
+
+                <!-- PEREPIXON -->
+                <div class="dj-card">
+                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
+                        P
+                    </div>
+                    <h3 class="dj-name">PEREPIXON</h3>
+                    <div class="dj-alias">Перепихон</div>
+                    <p class="dj-info">Легендарный диджей фиесты, тут же и дебютировал, недавно начал играть, но уже ебет!.</p>
+                    <p class="dj-info"><strong>Стиль:</strong> Умеет играть всё</p>
+                    <div class="dj-style">🎧 Глубокий саунд</div>
+                    <div class="dj-style">🌀 Прогрессивные волны</div>
+                    <div class="dj-style">🎵 Экспериментальные миксы</div>
                 </div>
             </div>
         </section>
