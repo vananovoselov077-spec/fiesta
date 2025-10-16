@@ -153,6 +153,56 @@
             margin-bottom: 3rem;
         }
 
+        /* Кнопка уведомлений */
+        .notify-btn {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-cyan));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 1rem;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.5);
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.7);
+        }
+
+        .notify-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Уведомление о разрешении */
+        .notification-permission {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            text-align: center;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Стеклянные карточки */
         .main {
             max-width: 1200px;
@@ -362,6 +412,14 @@
     <section class="hero">
         <h1 class="fiesta-title">ФИЕСТА</h1>
         <p class="subtitle">Самые громкие вечеринки города</p>
+        
+        <!-- Кнопка уведомлений -->
+        <div id="notificationSection">
+            <button class="notify-btn" id="enableNotifications">
+                🔔 Включить уведомления
+            </button>
+            <div id="notificationStatus"></div>
+        </div>
     </section>
 
     <!-- Основной контент -->
@@ -407,6 +465,86 @@
     </main>
 
     <script>
+        // Push-уведомления
+        class NotificationManager {
+            constructor() {
+                this.notificationBtn = document.getElementById('enableNotifications');
+                this.statusDiv = document.getElementById('notificationStatus');
+                this.init();
+            }
+
+            init() {
+                this.notificationBtn.addEventListener('click', () => this.requestPermission());
+                this.checkPermission();
+            }
+
+            checkPermission() {
+                if (!('Notification' in window)) {
+                    this.showStatus('Браузер не поддерживает уведомления', 'error');
+                    this.notificationBtn.disabled = true;
+                    return;
+                }
+
+                if (Notification.permission === 'granted') {
+                    this.showStatus('Уведомления включены ✅', 'success');
+                    this.notificationBtn.disabled = true;
+                    this.notificationBtn.textContent = '🔔 Уведомления включены';
+                } else if (Notification.permission === 'denied') {
+                    this.showStatus('Уведомления отключены ❌', 'error');
+                    this.notificationBtn.disabled = true;
+                }
+            }
+
+            async requestPermission() {
+                try {
+                    const permission = await Notification.requestPermission();
+                    
+                    if (permission === 'granted') {
+                        this.showStatus('Уведомления включены ✅', 'success');
+                        this.notificationBtn.disabled = true;
+                        this.notificationBtn.textContent = '🔔 Уведомления включены';
+                        
+                        // Показываем тестовое уведомление
+                        this.showTestNotification();
+                    } else {
+                        this.showStatus('Уведомления отключены ❌', 'error');
+                    }
+                } catch (error) {
+                    this.showStatus('Ошибка при запросе разрешения', 'error');
+                }
+            }
+
+            showTestNotification() {
+                if (Notification.permission === 'granted') {
+                    const notification = new Notification('ФИЕСТА 🎉', {
+                        body: 'Спасибо за подписку! Вы будете получать уведомления о новых вечеринках.',
+                        icon: 'https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0',
+                        tag: 'fiesta-welcome'
+                    });
+
+                    setTimeout(() => notification.close(), 5000);
+                }
+            }
+
+            showStatus(message, type) {
+                this.statusDiv.innerHTML = `
+                    <div class="notification-permission" style="border-color: ${type === 'success' ? '#00ff00' : '#ff4444'};">
+                        <p>${message}</p>
+                    </div>
+                `;
+            }
+
+            // Метод для отправки уведомлений о новых мероприятиях
+            sendEventNotification(title, body) {
+                if (Notification.permission === 'granted') {
+                    new Notification(`ФИЕСТА: ${title}`, {
+                        body: body,
+                        icon: 'https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0'
+                    });
+                }
+            }
+        }
+
         // Создание анимированных частиц
         function createParticles() {
             const particles = document.getElementById('particles');
@@ -437,9 +575,21 @@
             });
         });
 
-        // Запуск анимаций при загрузке
+        // Запуск при загрузке
         window.addEventListener('load', () => {
             createParticles();
+            new NotificationManager();
+        });
+
+        // Демо-уведомление при клике на кнопку "Купить билет"
+        document.querySelector('.btn').addEventListener('click', function() {
+            if (Notification.permission === 'granted') {
+                const notificationManager = new NotificationManager();
+                notificationManager.sendEventNotification(
+                    'ONE AUTUMN PARTY',
+                    'Не пропусти крутейшую вечеринку 18 октября! 🎉'
+                );
+            }
         });
     </script>
 </body>
