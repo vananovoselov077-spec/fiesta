@@ -3,361 +3,222 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ФИЕСТА - Вечеринки и мероприятия</title>
+    <title>ФИЕСТА | Клубные вечеринки</title>
     <style>
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
+
         :root {
             --neon-purple: #8a2be2;
             --neon-pink: #ff0080;
             --neon-blue: #0088cc;
-            --dark-bg: #0a0a0a;
-            --card-bg: rgba(26, 26, 26, 0.95);
+            --neon-cyan: #00ffff;
+            --dark-bg: #000000;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #000000;
             color: #ffffff;
             min-height: 100vh;
-            scroll-behavior: smooth;
             overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        /* Переключатель версий */
-        .version-switcher {
+        /* Анимированные частицы фона */
+        .particles {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1002;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 25px;
-            padding: 10px;
-            border: 1px solid rgba(138, 43, 226, 0.3);
-            display: flex;
-            gap: 10px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .version-switcher.hidden {
-            opacity: 0;
-            transform: translateY(-20px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
+            z-index: -1;
         }
 
-        .version-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 20px;
-            background: transparent;
-            color: #888;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: bold;
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            animation: float 6s infinite linear;
+            opacity: 0.3;
         }
 
-        .version-btn.active {
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            color: white;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
         }
 
-        /* Остальные стили остаются без изменений */
-        .mobile-version {
-            display: block;
-        }
-
-        .desktop-version {
-            display: none;
-        }
-
-        .mobile-header {
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(138, 43, 226, 0.4);
-            padding: 15px 20px;
+        /* Стеклянная шапка */
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 2rem;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .mobile-nav {
+        .nav {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 1rem;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            height: 40px;
+            width: auto;
+            margin-right: 2rem;
         }
 
-        .menu-toggle {
-            width: 30px;
-            height: 20px;
-            position: relative;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .menu-toggle span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            border-radius: 2px;
-            position: absolute;
-            transition: all 0.3s ease;
-        }
-
-        .menu-toggle span:nth-child(1) { top: 0; }
-        .menu-toggle span:nth-child(2) { top: 8px; }
-        .menu-toggle span:nth-child(3) { top: 16px; }
-
-        .menu-toggle.active span:nth-child(1) {
-            transform: rotate(45deg);
-            top: 8px;
-        }
-
-        .menu-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 8px;
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            height: 100vh;
-            background: rgba(10, 10, 10, 0.98);
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            z-index: 999;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 80px 30px 30px;
-            border-left: 1px solid rgba(138, 43, 226, 0.3);
-        }
-
-        .mobile-menu.active {
-            right: 0;
-        }
-
-        .mobile-menu a {
-            display: block;
-            color: white;
+        .nav a {
+            color: #fff;
             text-decoration: none;
-            padding: 20px;
-            font-size: 1.3rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .mobile-menu a:hover {
-            background: rgba(138, 43, 226, 0.1);
-            padding-left: 35px;
-        }
-
-        .tg-link-mobile {
-            background: linear-gradient(45deg, var(--neon-blue), #00ccff);
-            color: white;
-            padding: 15px 20px;
+            padding: 0.8rem 1.5rem;
             border-radius: 12px;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            margin-top: 30px;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
-        }
-
-        .desktop-header {
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid rgba(138, 43, 226, 0.4);
-            padding: 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .desktop-nav {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .desktop-nav a {
-            color: white;
-            text-decoration: none;
-            padding: 12px 24px;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--glass-bg);
             backdrop-filter: blur(10px);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            white-space: nowrap;
         }
 
-        .desktop-nav a::before {
+        .nav a::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
             transition: left 0.5s;
         }
 
-        .desktop-nav a:hover::before {
+        .nav a:hover::before {
             left: 100%;
         }
 
-        .desktop-nav a:hover {
+        .nav a:hover {
             background: rgba(138, 43, 226, 0.2);
             border-color: var(--neon-purple);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.3);
+            box-shadow: 
+                0 8px 25px rgba(138, 43, 226, 0.3),
+                0 0 20px rgba(138, 43, 226, 0.2);
         }
 
-        .tg-link-desktop {
-            position: absolute;
-            left: 20px;
-            background: linear-gradient(45deg, var(--neon-blue), #00ccff);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.5);
-        }
-
-        .tg-link-desktop:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(0, 136, 204, 0.8);
-        }
-
-        .main {
-            padding: 100px 20px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Главный заголовок */
+        .hero {
+            text-align: center;
+            padding: 12rem 2rem 6rem;
         }
 
         .fiesta-title {
-            text-align: center;
-            font-size: clamp(2.5rem, 10vw, 4rem);
-            font-weight: bold;
-            margin: 40px 0 60px 0;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink), var(--neon-blue));
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink), var(--neon-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: titleGlow 3s ease-in-out infinite;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 30px rgba(138, 43, 226, 0.5),
+                0 0 60px rgba(255, 0, 128, 0.3);
+            animation: glow 3s ease-in-out infinite alternate;
         }
 
-        @keyframes titleGlow {
-            0%, 100% { 
-                filter: drop-shadow(0 0 15px rgba(138, 43, 226, 0.5));
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.5));
             }
-            50% { 
-                filter: drop-shadow(0 0 25px rgba(255, 0, 128, 0.7));
+            to {
+                filter: drop-shadow(0 0 40px rgba(255, 0, 128, 0.7));
             }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+        }
+
+        /* Стеклянные карточки */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
         }
 
         .section {
-            margin: 60px 0;
+            margin: 6rem 0;
         }
 
         .section-title {
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-size: 3rem;
             text-align: center;
-            background: linear-gradient(45deg, #fff, #8a2be2);
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #fff, var(--neon-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .mobile-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px 25px;
-            margin: 25px 0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
         }
 
-        .desktop-card {
-            background: rgba(26, 26, 26, 0.8);
+        .event-card {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 50px;
-            margin: 40px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .desktop-card::before {
+        .event-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), rgba(255, 0, 128, 0.05));
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1), transparent);
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .desktop-card:hover::before {
+        .event-card:hover::before {
             opacity: 1;
         }
 
-        .desktop-card:hover {
-            transform: translateY(-10px);
+        .event-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-purple);
             box-shadow: 
                 0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(138, 43, 226, 0.2);
-            border-color: rgba(138, 43, 226, 0.3);
+                0 0 30px rgba(138, 43, 226, 0.3);
         }
 
-        h1 {
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, #fff, #8a2be2);
+        .event-name {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #fff, var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -366,284 +227,203 @@
         .event-info {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin: 15px 0;
-            color: #e0e0e0;
+            margin: 1rem 0;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        .mobile-btn {
+        /* Кнопка */
+        .btn {
             background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
             color: white;
-            padding: 20px 30px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: all 0.3s;
-            font-weight: bold;
-            width: 100%;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
-        }
-
-        .mobile-btn:active {
-            transform: scale(0.95);
-        }
-
-        .desktop-btn {
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            color: white;
-            padding: 18px 45px;
+            padding: 1.2rem 3rem;
             border: none;
             border-radius: 12px;
             font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            margin-top: 30px;
-            transition: all 0.3s;
-            font-weight: bold;
+            margin-top: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
             box-shadow: 
                 0 0 20px rgba(138, 43, 226, 0.5),
                 inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .desktop-btn:hover {
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
             transform: translateY(-3px);
             box-shadow: 
                 0 0 30px rgba(255, 0, 128, 0.7),
                 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
-        .empty-section {
-            background: var(--card-bg);
+        /* Анимированные разделы */
+        .content-section {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 60px 40px;
+            padding: 4rem;
+            margin: 2rem 0;
             text-align: center;
-            border: 2px dashed rgba(255, 255, 255, 0.2);
-            color: #888;
-            font-size: 1.2rem;
+            transition: all 0.3s ease;
         }
 
+        .content-section:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .version-switcher {
-                top: 10px;
-                right: 10px;
-                padding: 8px;
+            .nav {
+                flex-wrap: wrap;
+                gap: 0.5rem;
             }
             
-            .version-btn {
-                padding: 8px 16px;
+            .logo {
+                margin-right: 1rem;
+                height: 30px;
+            }
+            
+            .nav a {
+                padding: 0.6rem 1rem;
                 font-size: 0.9rem;
             }
             
-            .mobile-header {
-                padding: 12px 15px;
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 8rem 1rem 4rem;
             }
             
             .main {
-                padding: 80px 15px 20px;
+                padding: 0 1rem 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Переключатель версий -->
-    <div class="version-switcher" id="versionSwitcher">
-        <button class="version-btn active" data-version="mobile">📱 Мобильная</button>
-        <button class="version-btn" data-version="desktop">🖥️ Десктопная</button>
-    </div>
+    <!-- Анимированные частицы -->
+    <div class="particles" id="particles"></div>
 
-    <!-- Мобильная версия -->
-    <div class="mobile-version" id="mobileVersion">
-        <header class="mobile-header">
-            <nav class="mobile-nav">
-                <div class="logo">ФИЕСТА</div>
-                <div class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
-        </header>
+    <!-- Стеклянная шапка -->
+    <header class="header">
+        <nav class="nav">
+            <img src="https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0" alt="ФИЕСТА" class="logo">
+            <a href="#upcoming">Ближайшие</a>
+            <a href="#past">Прошедшие</a>
+            <a href="#gallery">Галерея</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+    </header>
 
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#upcoming">🎪 Ближайшие</a>
-            <a href="#past">📅 Прошедшие</a>
-            <a href="#photos">📷 Фото</a>
-            <a href="#contacts">📞 Контакты</a>
-            <a href="https://t.me/fiestatsk" class="tg-link-mobile">📱 TG - канал</a>
-        </div>
+    <!-- Главный экран -->
+    <section class="hero">
+        <h1 class="fiesta-title">ФИЕСТА</h1>
+        <p class="subtitle">Самые громкие вечеринки города</p>
+    </section>
 
-        <div class="main">
-            <div class="fiesta-title">ФИЕСТА</div>
-            
-            <section id="upcoming" class="section">
-                <h2 class="section-title">Ближайшие</h2>
-                <div class="mobile-card">
-                    <h1>ONE AUTUMN PARTY</h1>
+    <!-- Основной контент -->
+    <main class="main">
+        <!-- Ближайшие мероприятия -->
+        <section id="upcoming" class="section">
+            <h2 class="section-title">Ближайшие мероприятия</h2>
+            <div class="event-grid">
+                <div class="event-card">
+                    <h3 class="event-name">ONE AUTUMN PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 18 октября</p>
                     <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
                     <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
-                    <button class="mobile-btn">🎫 КУПИТЬ БИЛЕТ</button>
+                    
+                    <button class="btn">🎫 КУПИТЬ БИЛЕТ</button>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="past" class="section">
-                <h2 class="section-title">Прошедшие</h2>
-                <div class="empty-section">
-                    <p>✨ В разработке ✨</p>
-                    <p>Скоро здесь появятся прошедшие мероприятия</p>
-                </div>
-            </section>
+        <!-- Прошедшие мероприятия -->
+        <section id="past" class="section">
+            <h2 class="section-title">Прошедшие мероприятия</h2>
+            <div class="content-section">
+                <p>Скоро здесь появятся фото и видео с прошедших вечеринок</p>
+            </div>
+        </section>
 
-            <section id="photos" class="section">
-                <h2 class="section-title">Фото</h2>
-                <div class="empty-section">
-                    <p>📸 В разработке 📸</p>
-                    <p>Скоро здесь появятся фотографии</p>
-                </div>
-            </section>
+        <!-- Галерея -->
+        <section id="gallery" class="section">
+            <h2 class="section-title">Галерея</h2>
+            <div class="content-section">
+                <p>Яркие моменты наших мероприятий</p>
+            </div>
+        </section>
 
-            <section id="contacts" class="section">
-                <h2 class="section-title">Контакты</h2>
-                <div class="empty-section">
-                    <p>📞 В разработке 📞</p>
-                    <p>Скоро здесь появятся контакты</p>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <!-- Десктопная версия -->
-    <div class="desktop-version" id="desktopVersion">
-        <header class="desktop-header">
-            <nav class="desktop-nav">
-                <a href="https://t.me/fiestatsk" class="tg-link-desktop">TG - КАНАЛ</a>
-                <a href="#upcoming">Ближайшие мероприятия</a>
-                <a href="#past">Прошедшие мероприятия</a>
-                <a href="#photos">Фото с мероприятий</a>
-                <a href="#contacts">Контакты</a>
-            </nav>
-        </header>
-
-        <div class="main">
-            <div class="fiesta-title">ФИЕСТА</div>
-            
-            <section id="upcoming" class="section">
-                <h2 class="section-title">Ближайшие мероприятия</h2>
-                <div class="desktop-card">
-                    <h1>ONE AUTUMN PARTY</h1>
-                    <p class="event-info"><strong>📅 Дата:</strong> 18 октября</p>
-                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
-                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
-                    <button class="desktop-btn">🎫 КУПИТЬ БИЛЕТ</button>
-                </div>
-            </section>
-
-            <section id="past" class="section">
-                <h2 class="section-title">Прошедшие мероприятия</h2>
-                <div class="empty-section">
-                    <p>✨ Раздел в разработке ✨</p>
-                    <p>Скоро здесь появятся прошедшие мероприятия</p>
-                </div>
-            </section>
-
-            <section id="photos" class="section">
-                <h2 class="section-title">Фото с мероприятий</h2>
-                <div class="empty-section">
-                    <p>📸 Раздел в разработке 📸</p>
-                    <p>Скоро здесь появятся фотографии с мероприятий</p>
-                </div>
-            </section>
-
-            <section id="contacts" class="section">
-                <h2 class="section-title">Контакты</h2>
-                <div class="empty-section">
-                    <p>📞 Раздел в разработке 📞</p>
-                    <p>Скоро здесь появятся контактные данные</p>
-                </div>
-            </section>
-        </div>
-    </div>
+        <!-- Контакты -->
+        <section id="contacts" class="section">
+            <h2 class="section-title">Контакты</h2>
+            <div class="content-section">
+                <p>📱 Telegram: @fiestatsk</p>
+            </div>
+        </section>
+    </main>
 
     <script>
-        // Переключатель версий с авто-скрытием
-        const versionSwitcher = document.getElementById('versionSwitcher');
-        const versionBtns = document.querySelectorAll('.version-btn');
-        const mobileVersion = document.getElementById('mobileVersion');
-        const desktopVersion = document.getElementById('desktopVersion');
-
-        let hideTimeout;
-
-        function showSwitcher() {
-            versionSwitcher.classList.remove('hidden');
-            // Сбрасываем таймер при каждом взаимодействии
-            clearTimeout(hideTimeout);
-            // Прячем через 3 секунды
-            hideTimeout = setTimeout(() => {
-                versionSwitcher.classList.add('hidden');
-            }, 3000);
+        // Создание анимированных частиц
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 4) + 's';
+                particles.appendChild(particle);
+            }
         }
 
-        // Показываем переключатель при загрузке
-        showSwitcher();
-
-        versionBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                // Убираем активный класс у всех кнопок
-                versionBtns.forEach(b => b.classList.remove('active'));
-                // Добавляем активный класс текущей кнопке
-                this.classList.add('active');
-                
-                const version = this.dataset.version;
-                
-                if (version === 'mobile') {
-                    mobileVersion.style.display = 'block';
-                    desktopVersion.style.display = 'none';
-                } else {
-                    mobileVersion.style.display = 'none';
-                    desktopVersion.style.display = 'block';
-                }
-
-                // Показываем переключатель и запускаем таймер скрытия
-                showSwitcher();
-            });
-        });
-
-        // Показываем переключатель при наведении (для десктопа)
-        versionSwitcher.addEventListener('mouseenter', () => {
-            showSwitcher();
-        });
-
-        // Показываем переключатель при тапе (для мобильных)
-        versionSwitcher.addEventListener('touchstart', () => {
-            showSwitcher();
-        });
-
-        // Бургер-меню для мобильной версии
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function() {
-                this.classList.toggle('active');
-                mobileMenu.classList.toggle('active');
-                document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-            });
-
-            // Закрытие меню при клике на ссылку
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    menuToggle.classList.remove('active');
-                    mobileMenu.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            });
-        }
-
-        // Плавная прокрутка для десктопной версии
-        document.querySelectorAll('.desktop-nav a[href^="#"]').forEach(link => {
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
@@ -655,6 +435,11 @@
                     });
                 }
             });
+        });
+
+        // Запуск анимаций при загрузке
+        window.addEventListener('load', () => {
+            createParticles();
         });
     </script>
 </body>
