@@ -172,6 +172,62 @@
             transform: scale(1.1);
         }
 
+        /* Таймер обратного отсчета */
+        .countdown-section {
+            margin: 3rem auto;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .countdown-title {
+            font-size: 1.3rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            min-width: 90px;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         /* Остальные стили */
         .header {
             background: rgba(0, 0, 0, 0.9);
@@ -713,6 +769,23 @@
             .event-poster {
                 height: 250px;
             }
+
+            .countdown-timer {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                padding: 1rem 0.5rem;
+                min-width: 70px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -767,6 +840,29 @@
                 🔔 Включить уведомления
             </button>
             <div id="notificationStatus"></div>
+        </div>
+
+        <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА -->
+        <div class="countdown-section">
+            <div class="countdown-title">До ONE AUTUMN PARTY осталось:</div>
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">дней</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">часов</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">минут</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">секунд</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -960,6 +1056,49 @@
     </main>
 
     <script>
+      // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
+function updateCountdown() {
+    const eventDate = new Date('2025-10-18T18:00:00').getTime();
+    const now = new Date().getTime();
+    const distance = eventDate - now;
+
+    if (distance < 0) {
+        document.querySelector('.countdown-section').innerHTML = `
+            <div class="countdown-title" style="color: var(--neon-pink);">
+                🎉 Вечеринка началась! Приходи на FACE CLUB!
+            </div>
+        `;
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    updateNumber('days', days);
+    updateNumber('hours', hours);
+    updateNumber('minutes', minutes);
+    updateNumber('seconds', seconds);
+}
+
+function updateNumber(elementId, newValue) {
+    const element = document.getElementById(elementId);
+    const currentValue = parseInt(element.textContent);
+    
+    if (currentValue !== newValue) {
+        element.style.transform = 'scale(1.1)';
+        element.textContent = newValue.toString().padStart(2, '0');
+        
+        setTimeout(() => {
+            element.style.transform = 'scale(1)';
+        }, 150);
+    }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
         // iPhone 17 Popup Functions
         function showPopup() {
             document.getElementById('iphonePopup').style.display = 'flex';
