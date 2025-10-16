@@ -55,7 +55,7 @@
             100% { transform: translateY(-100px) rotate(360deg); }
         }
 
-        /* iPhone 17 Welcome Popup */
+        /* Реалистичный iPhone 15 Pro */
         .iphone-popup {
             position: fixed;
             top: 0;
@@ -70,162 +70,191 @@
             z-index: 9999;
         }
 
-        .iphone-container {
+        .iphone-15-pro {
             position: relative;
-            width: 300px;
-            height: 600px;
+            width: 320px;
+            height: 660px;
+            transform: scale(0.9);
+            animation: phoneAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        .iphone-body {
+        .iphone-frame {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #1a1a1a, #000);
-            border-radius: 40px;
-            border: 8px solid #333;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            border-radius: 44px;
+            border: 12px solid #1a1a1a;
             box-shadow: 
-                0 0 50px rgba(138, 43, 226, 0.5),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                0 0 0 1px rgba(255,255,255,0.1),
+                0 30px 60px rgba(0,0,0,0.8),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                inset 0 -1px 0 rgba(0,0,0,0.5);
             overflow: hidden;
         }
 
         .iphone-screen {
             position: absolute;
-            top: 20px;
-            left: 10px;
-            right: 10px;
-            bottom: 20px;
-            background: linear-gradient(45deg, #000, #1a1a1a);
-            border-radius: 30px;
-            padding: 30px 20px;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            background: linear-gradient(135deg, #000, #111);
+            border-radius: 38px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 35px;
+            background: #000;
+            border-radius: 25px;
+            z-index: 10;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* Контент экрана */
+        .screen-content {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 60px 30px 40px;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .iphone-notch {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 25px;
-            background: #000;
-            border-radius: 0 0 15px 15px;
-            z-index: 2;
+        .welcome-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            animation: bounce 2s infinite;
         }
 
         .welcome-title {
             font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            font-weight: 700;
+            background: linear-gradient(45deg, #fff, #aaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
         }
 
-        .welcome-text {
+        .welcome-message {
             font-size: 1.1rem;
             line-height: 1.5;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 1rem;
+        }
+
+        .welcome-submessage {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.7);
             margin-bottom: 2rem;
         }
 
-        .iphone-button {
-            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            color: white;
+        .iphone-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .iphone-btn {
+            padding: 14px 24px;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        .iphone-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 0, 128, 0.7);
-        }
-
-        .close-popup {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .close-popup:hover {
-            background: rgba(255, 0, 128, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* Таймер обратного отсчета */
-        .countdown-section {
-            margin: 2rem auto;
-            text-align: center;
-            max-width: 600px;
-        }
-
-        .countdown-title {
-            font-size: 1.3rem;
-            color: var(--neon-cyan);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-        }
-
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .countdown-item {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 1.5rem 1rem;
-            min-width: 90px;
-            transition: all 0.3s ease;
-        }
-
-        .countdown-item:hover {
-            border-color: var(--neon-purple);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
-        }
-
-        .countdown-number {
-            font-size: 2.5rem;
-            font-weight: 900;
+        .iphone-btn.primary {
             background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: block;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-            transition: transform 0.3s ease;
+            color: white;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
         }
 
-        .countdown-label {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .iphone-btn.secondary {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.9);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .iphone-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Физические кнопки */
+        .iphone-buttons-physical {
+            position: absolute;
+            top: 0;
+            left: -8px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 100px 0;
+            pointer-events: none;
+        }
+
+        .volume-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .volume-up, .volume-down, .power-button {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(to right, #2a2a2a, #1a1a1a, #2a2a2a);
+            border-radius: 2px;
+            box-shadow: inset -1px 0 0 rgba(255,255,255,0.1);
+        }
+
+        .power-button {
+            position: absolute;
+            right: -8px;
+            top: 120px;
+            height: 60px;
+        }
+
+        /* Анимации */
+        @keyframes phoneAppear {
+            0% {
+                transform: scale(0.8) translateY(100px);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(0.9) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         /* Остальные стили */
@@ -297,6 +326,39 @@
                 0 0 20px rgba(138, 43, 226, 0.2);
         }
 
+        /* VK ИКОНКА В ШАПКЕ */
+        .nav-vk {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 1rem;
+        }
+
+        .nav-vk:hover {
+            background: rgba(0, 119, 255, 0.2);
+            border-color: #0077ff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 119, 255, 0.3);
+            color: #0077ff;
+        }
+
+        .nav-vk svg {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-vk:hover svg {
+            transform: scale(1.1);
+        }
+
         .hero {
             text-align: center;
             padding: 12rem 2rem 6rem;
@@ -365,6 +427,62 @@
             margin: 2rem auto;
             max-width: 500px;
             text-align: center;
+        }
+
+        /* Таймер обратного отсчета */
+        .countdown-section {
+            margin: 3rem auto;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .countdown-title {
+            font-size: 1.3rem;
+            color: var(--neon-cyan);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem 1rem;
+            min-width: 90px;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            border-color: var(--neon-purple);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .main {
@@ -753,9 +871,9 @@
                 grid-template-columns: 1fr;
             }
 
-            .iphone-container {
+            .iphone-15-pro {
                 width: 280px;
-                height: 560px;
+                height: 580px;
             }
 
             .counter-number {
@@ -786,64 +904,46 @@
             .countdown-label {
                 font-size: 0.8rem;
             }
+
+            .nav-vk {
+                margin-left: 0.5rem;
+                width: 40px;
+                height: 40px;
+            }
         }
-        /* VK ИКОНКА В ШАПКЕ */
-.nav-vk {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    color: #fff;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-left: 1rem;
-}
-
-.nav-vk:hover {
-    background: rgba(0, 119, 255, 0.2);
-    border-color: #0077ff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 119, 255, 0.3);
-    color: #0077ff;
-}
-
-.nav-vk svg {
-    transition: transform 0.3s ease;
-}
-
-.nav-vk:hover svg {
-    transform: scale(1.1);
-}
     </style>
 </head>
 <body>
-    <!-- iPhone 17 Welcome Popup -->
+    <!-- Реалистичный iPhone Popup -->
     <div class="iphone-popup" id="iphonePopup">
-        <div class="iphone-container">
-            <div class="iphone-body">
-                <div class="iphone-notch"></div>
+        <div class="iphone-15-pro">
+            <div class="iphone-frame">
                 <div class="iphone-screen">
-                    <div class="welcome-message">
-                        <div class="welcome-title">Добро пожаловать! 👋</div>
-                        <div class="welcome-text">
-                            Спасибо что посетили наш сайт!<br>
-                            Мы очень рады вас видеть!<br><br>
-                            Были бы еще больше рады,<br>
-                            если бы вы приобрели билет! 🎫
+                    <div class="dynamic-island"></div>
+                    <div class="screen-content">
+                        <div class="welcome-icon">🎉</div>
+                        <h2 class="welcome-title">Добро пожаловать!</h2>
+                        <p class="welcome-message">Спасибо что посетили наш сайт! Мы очень рады вас видеть!</p>
+                        <p class="welcome-submessage">Были бы еще больше рады, если бы вы приобрели билет! 🎫</p>
+                        <div class="iphone-buttons">
+                            <button class="iphone-btn primary" onclick="buyTickets()">
+                                <span>Купить билет</span>
+                            </button>
+                            <button class="iphone-btn secondary" onclick="closePopup()">
+                                <span>Закрыть</span>
+                            </button>
                         </div>
-                        <button class="iphone-button" onclick="buyTickets()">
-                            🎫 Купить билет
-                        </button>
                     </div>
                 </div>
             </div>
+            <div class="iphone-buttons-physical">
+                <div class="volume-buttons">
+                    <div class="volume-up"></div>
+                    <div class="volume-down"></div>
+                </div>
+                <div class="power-button"></div>
+            </div>
         </div>
-        <button class="close-popup" onclick="closePopup()">✕</button>
     </div>
 
     <!-- Анимированные частицы -->
@@ -858,13 +958,15 @@
             <a href="#past">Прошедшие</a>
             <a href="#gallery">Галерея</a>
             <a href="#contacts">Контакты</a>
+            <!-- VK Иконка -->
+            <a href="https://vk.com/fiestatsk" target="_blank" class="nav-vk">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm2.65 14.75c-.38.95-.98 1.6-2.1 1.6-1.25 0-1.85-.88-2.65-1.9-.95 1.05-1.35 1.9-2.65 1.9-1.12 0-1.72-.65-2.1-1.6-1.05-2.63.6-6.35 3.75-6.35.9 0 1.55.35 2.1.9.55-.55 1.2-.9 2.1-.9 3.15 0 4.8 3.72 3.75 6.35z"/>
+                </svg>
+            </a>
         </nav>
     </header>
-<a href="https://vk.com/fiestatsk" target="_blank" class="nav-vk">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm2.65 14.75c-.38.95-.98 1.6-2.1 1.6-1.25 0-1.85-.88-2.65-1.9-.95 1.05-1.35 1.9-2.65 1.9-1.12 0-1.72-.65-2.1-1.6-1.05-2.63.6-6.35 3.75-6.35.9 0 1.55.35 2.1.9.55-.55 1.2-.9 2.1-.9 3.15 0 4.8 3.72 3.75 6.35z"/>
-    </svg>
-</a>
+
     <!-- Главный экран -->
     <section class="hero">
         <h1 class="fiesta-title">ФИЕСТА</h1>
@@ -911,7 +1013,7 @@
                 <div class="event-card">
                     <img src="https://sun9-68.userapi.com/s/v1/ig2/xEaaKBroYLFgfJeCM6YQGF43EH6jvETkcZJ2yLwTfcN6DsOTwEVKlLFONxL_b8KEj3iKk41n72y-dCviGpq_nItF.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0" alt="ONE AUTUMN PARTY" class="event-poster">
                     <h3 class="event-name">ONE AUTUMN PARTY</h3>
-                    <p class="event-info"><strong>📅 Дата:</strong> 18 октября</p>
+                    <p class="event-info"><strong>📅 Дата:</strong> 18 октября 2025</p>
                     <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
                     <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
                     
@@ -1092,50 +1194,55 @@
     </main>
 
     <script>
-      // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
-function updateCountdown() {
-    const eventDate = new Date('2025-10-18T18:00:00').getTime();
-    const now = new Date().getTime();
-    const distance = eventDate - now;
+        // ТАЙМЕР ОБРАТНОГО ОТСЧЕТА
+        function updateCountdown() {
+            const eventDate = new Date('2025-10-18T18:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
 
-    if (distance < 0) {
-        document.querySelector('.countdown-section').innerHTML = `
-            <div class="countdown-title" style="color: var(--neon-pink);">
-                🎉 Вечеринка началась! Приходи на FACE CLUB!
-            </div>
-        `;
-        return;
-    }
+            // Если время вышло
+            if (distance < 0) {
+                document.querySelector('.countdown-section').innerHTML = `
+                    <div class="countdown-title" style="color: var(--neon-pink);">
+                        🎉 Вечеринка началась! Приходи на FACE CLUB!
+                    </div>
+                `;
+                return;
+            }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Расчет времени
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    updateNumber('days', days);
-    updateNumber('hours', hours);
-    updateNumber('minutes', minutes);
-    updateNumber('seconds', seconds);
-}
+            // Обновление цифр с анимацией
+            updateNumber('days', days);
+            updateNumber('hours', hours);
+            updateNumber('minutes', minutes);
+            updateNumber('seconds', seconds);
+        }
 
-function updateNumber(elementId, newValue) {
-    const element = document.getElementById(elementId);
-    const currentValue = parseInt(element.textContent);
-    
-    if (currentValue !== newValue) {
-        element.style.transform = 'scale(1.1)';
-        element.textContent = newValue.toString().padStart(2, '0');
-        
-        setTimeout(() => {
-            element.style.transform = 'scale(1)';
-        }, 150);
-    }
-}
+        // Функция для плавного обновления цифр
+        function updateNumber(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            const currentValue = parseInt(element.textContent);
+            
+            if (currentValue !== newValue) {
+                element.style.transform = 'scale(1.1)';
+                element.textContent = newValue.toString().padStart(2, '0');
+                
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 150);
+            }
+        }
 
-updateCountdown();
-setInterval(updateCountdown, 1000);
+        // Запуск таймера
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
 
-        // iPhone 17 Popup Functions
+        // iPhone Popup Functions
         function showPopup() {
             document.getElementById('iphonePopup').style.display = 'flex';
         }
