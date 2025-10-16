@@ -435,6 +435,26 @@
                 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
+        /* Стили для афиш */
+        .event-poster {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover .event-poster {
+            border-color: var(--neon-purple);
+            transform: scale(1.02);
+        }
+
+        .past-event-card:hover .event-poster {
+            border-color: var(--neon-cyan);
+        }
+
         /* Стили для прошедших мероприятий */
         .past-event-card {
             background: var(--glass-bg);
@@ -689,6 +709,10 @@
             .counter-text {
                 font-size: 1.2rem;
             }
+
+            .event-poster {
+                height: 250px;
+            }
         }
     </style>
 </head>
@@ -753,6 +777,7 @@
             <h2 class="section-title">Ближайшие мероприятия</h2>
             <div class="event-grid">
                 <div class="event-card">
+                    <img src="https://sun9-68.userapi.com/s/v1/ig2/xEaaKBroYLFgfJeCM6YQGF43EH6jvETkcZJ2yLwTfcN6DsOTwEVKlLFONxL_b8KEj3iKk41n72y-dCviGpq_nItF.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0" alt="ONE AUTUMN PARTY" class="event-poster">
                     <h3 class="event-name">ONE AUTUMN PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 18 октября</p>
                     <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
@@ -812,6 +837,7 @@
             <div class="event-grid">
                 <!-- NEW YEAR PARTY -->
                 <div class="past-event-card">
+                    <img src="https://sun9-19.userapi.com/s/v1/ig2/R74LnPrCVwfnDrcfPgqpTnwULLKGcYApOsGuHIpNmOW7oGJ4jymgm-rdSGGRv6aAtCm0SBGzOZkkkhiwzll9tiGe.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=3mK9SGJo59GC3xlZZk2zVSXMF1wR9OENKXcBgFjVNAQ&cs=640x0" alt="NEW YEAR PARTY" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">NEW YEAR PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 28 декабря</p>
@@ -826,6 +852,7 @@
 
                 <!-- SEASON25 PARTY -->
                 <div class="past-event-card">
+                    <img src="https://sun9-81.userapi.com/s/v1/ig2/e4gf0Kq448YrkNCznhvuKC9wIdmGkBbcF1LD1193VU_laq9z_mIXUbBdaV8tKyZe6n9WFLT1QS5oxPvjW6GkXZx7.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2000x2000&from=bu&u=EvCL2yInESJSfGcT_3VaWGn1HndtT21LHbRXqi3edcs&cs=640x0" alt="SEASON25 PARTY" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">SEASON25 PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 18 января</p>
@@ -840,6 +867,7 @@
 
                 <!-- TINDER PARTY -->
                 <div class="past-event-card">
+                    <img src="https://sun9-85.userapi.com/s/v1/ig2/t3FtTQd54gaIXPETw4HGuBS0wn0R93ZBug7nxoKicGFETX2EWQfl1WGoOMxcDr_msKKF24a5BQJoicDNppp7hAYU.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=tCEmGnEUcJwe9wgHLgcP4aOCxgVanwtdth9gCWBVVh8&cs=640x0" alt="TINDER PARTY" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">TINDER PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 15 февраля</p>
@@ -854,6 +882,7 @@
 
                 <!-- HIP HOP - FEST -->
                 <div class="past-event-card">
+                    <img src="https://sun9-73.userapi.com/s/v1/ig2/YsdLjFs4KQr1RB_jN8FhJYgy0ca5D6QzX6-zC_Qcx181ybsLwTIuKdcwXfzC4XzIImMws5Sa4H-st4M5n5IRkN7b.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=d8sFvvh0l34yc3UIyQMiHVm3LDG0Iv2mG1ztKDT6kOM&cs=640x0" alt="HIP HOP - FEST" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">HIP HOP - FEST</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 22 марта</p>
@@ -868,6 +897,7 @@
 
                 <!-- CHILLOUT PARTY -->
                 <div class="past-event-card">
+                    <img src="https://sun9-43.userapi.com/s/v1/ig2/GKnMCmtEW1-DCJMMPFZ6MfUvxoHsIAws9imR2RlF1ly0vm92QhLs7HXJ-PimudQpOtL8rFdMzc9iB-s1LWRxswAn.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2560x2560&from=bu&u=TFG_s0EAyy3svx4VDYEcdNIn_gjqCRn5V4bXli43oD0&cs=640x0" alt="CHILLOUT PARTY" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">CHILLOUT PARTY</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 26 апреля</p>
@@ -882,6 +912,7 @@
 
                 <!-- СУДНЫЙ ДЕНЬ НОЧЬ -->
                 <div class="past-event-card">
+                    <img src="https://sun9-84.userapi.com/s/v1/ig2/_DW39iOVnvLHczeyzJn6-9L_QVUaboq0lE4vc15E0_8Pw7W1mLT6XxkhORky6uHIdpWjV9hjQAYIBM-ToLRYW9ca.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2560x2560&from=bu&u=lJxWrAfYz3uUXO667IkmXzjktFgRCl2Jd1sW8L3C1_0&cs=640x0" alt="СУДНЫЙ ДЕНЬ НОЧЬ" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">СУДНЫЙ ДЕНЬ НОЧЬ</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 16 мая</p>
@@ -896,6 +927,7 @@
 
                 <!-- TOTAL BLACK -->
                 <div class="past-event-card">
+                    <img src="https://sun9-61.userapi.com/s/v1/ig2/2h0FEJFKrFCVlA0aUDv11DZfB730rz3obQlinXrrxdnlc03oVsM7yceVnAvI8dwRDHj1FtonKFoHbEdqyYByC3TG.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=TFflOBLZzpR1Atm1hOSChmeUwfFj7MD-LCLk-DiaHvw&cs=640x0" alt="TOTAL BLACK" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
                     <h3 class="past-event-name">TOTAL BLACK</h3>
                     <p class="event-info"><strong>📅 Дата:</strong> 2 августа</p>
@@ -1046,9 +1078,6 @@
             createParticles();
             new NotificationManager();
         });
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
