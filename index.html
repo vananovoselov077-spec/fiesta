@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ФИЕСТА - Вечеринки и мероприятия</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: Arial, sans-serif;
@@ -20,17 +16,31 @@
         .header {
             background: #6a0dad;
             color: white;
-            padding: 20px;
-            text-align: center;
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
         }
         
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
+        .nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
         }
         
         .main {
-            padding: 40px 20px;
+            padding: 80px 20px 40px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -67,8 +77,11 @@
 </head>
 <body>
     <header class="header">
-        <div class="logo">🎉 ФИЕСТА</div>
-        <p>Лучшие вечеринки города!</p>
+        <nav class="nav">
+            <a href="#">Главная</a>
+            <a href="#">Мероприятия</a>
+            <a href="#">Контакты</a>
+        </nav>
     </header>
     
     <div class="main">
@@ -79,12 +92,6 @@
             <p><strong>📍 Место:</strong> Ресторан "ФИЕСТА"</p>
             <p><strong>💵 Цены:</strong> от 1500 руб.</p>
             <button class="btn">🎫 КУПИТЬ БИЛЕТ</button>
-        </div>
-        
-        <div class="event-card">
-            <h2>Контакты</h2>
-            <p>📞 Телефон: +7 (999) 123-45-67</p>
-            <p>📧 Email: fiesta@party.ru</p>
         </div>
     </div>
 </body>
