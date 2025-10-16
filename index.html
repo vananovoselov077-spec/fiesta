@@ -64,20 +64,16 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(10px);
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            opacity: 0;
-            animation: fadeIn 0.5s ease-out forwards;
         }
 
         .iphone-container {
             position: relative;
             width: 300px;
             height: 600px;
-            transform: scale(0.8) translateY(100px);
-            animation: phoneSlideUp 1s ease-out 0.5s forwards;
         }
 
         .iphone-body {
@@ -107,7 +103,6 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            overflow: hidden;
         }
 
         .iphone-notch {
@@ -120,12 +115,6 @@
             background: #000;
             border-radius: 0 0 15px 15px;
             z-index: 2;
-        }
-
-        .welcome-message {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: messageAppear 1s ease-out 1.5s forwards;
         }
 
         .welcome-title {
@@ -183,26 +172,7 @@
             transform: scale(1.1);
         }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes phoneSlideUp {
-            to {
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        @keyframes messageAppear {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Остальные стили остаются без изменений */
+        /* Остальные стили */
         .header {
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
@@ -339,18 +309,6 @@
             margin: 2rem auto;
             max-width: 500px;
             text-align: center;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .main {
@@ -475,6 +433,108 @@
             box-shadow: 
                 0 0 30px rgba(255, 0, 128, 0.7),
                 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Стили для прошедших мероприятий */
+        .past-event-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0.8;
+        }
+
+        .past-event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(128, 128, 128, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .past-event-card:hover::before {
+            opacity: 1;
+        }
+
+        .past-event-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-cyan);
+            opacity: 1;
+        }
+
+        .past-event-name {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #888, var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .past-event-badge {
+            display: inline-block;
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff4444;
+            padding: 0.3rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .past-btn {
+            background: linear-gradient(45deg, #666, #999);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .past-btn:hover {
+            background: linear-gradient(45deg, #777, #aaa);
+            transform: translateY(-2px);
+        }
+
+        /* Счетчик мероприятий */
+        .events-counter {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .counter-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-pink), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .counter-text {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .dj-grid {
@@ -621,6 +681,14 @@
                 width: 280px;
                 height: 560px;
             }
+
+            .counter-number {
+                font-size: 3rem;
+            }
+
+            .counter-text {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -639,7 +707,7 @@
                             Были бы еще больше рады,<br>
                             если бы вы приобрели билет! 🎫
                         </div>
-                        <button class="iphone-button" onclick="closePopup()">
+                        <button class="iphone-button" onclick="buyTickets()">
                             🎫 Купить билет
                         </button>
                     </div>
@@ -734,8 +802,111 @@
         <!-- Прошедшие мероприятия -->
         <section id="past" class="section">
             <h2 class="section-title">Прошедшие мероприятия</h2>
-            <div class="content-section">
-                <p>Скоро здесь появятся фото и видео с прошедших вечеринок</p>
+            
+            <!-- Счетчик мероприятий -->
+            <div class="events-counter">
+                <span class="counter-number">7</span>
+                <div class="counter-text">успешных вечеринок уже за нашими плечами! 🎉</div>
+            </div>
+
+            <div class="event-grid">
+                <!-- NEW YEAR PARTY -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">NEW YEAR PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 28 декабря</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 14+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_302" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- SEASON25 PARTY -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">SEASON25 PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 18 января</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_841" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- TINDER PARTY -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">TINDER PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 15 февраля</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1184" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- HIP HOP - FEST -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">HIP HOP - FEST</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 22 марта</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 14+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1372" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- CHILLOUT PARTY -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">CHILLOUT PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 26 апреля</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> EVENTY VIBE, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1467" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- СУДНЫЙ ДЕНЬ НОЧЬ -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">СУДНЫЙ ДЕНЬ НОЧЬ</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 16 мая</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00 (EVENTY VIBE)</p>
+                    <p class="event-info"><strong>📍 Место:</strong> 22:00 - 12:00 (КОТТЕДЖ)</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+ (клуб), 17+ (коттедж)</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1552" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- TOTAL BLACK -->
+                <div class="past-event-card">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">TOTAL BLACK</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 2 августа</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 21:30</p>
+                    <p class="event-info"><strong>📍 Место:</strong> Perk Up, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 14+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1606" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -763,13 +934,11 @@
         }
 
         function closePopup() {
-            const popup = document.getElementById('iphonePopup');
-            popup.style.animation = 'fadeIn 0.5s ease-out reverse forwards';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 500);
-            
-            // Перенаправляем на страницу покупки билетов
+            document.getElementById('iphonePopup').style.display = 'none';
+        }
+
+        function buyTickets() {
+            closePopup();
             window.open('https://tomsk.qtickets.events/187697-one-autumn-collaboration', '_blank');
         }
 
@@ -816,8 +985,6 @@
                         this.showStatus('Уведомления включены ✅', 'success');
                         this.notificationBtn.disabled = true;
                         this.notificationBtn.textContent = '🔔 Уведомления включены';
-                        
-                        this.showTestNotification();
                     } else {
                         this.showStatus('Уведомления отключены ❌', 'error');
                     }
@@ -826,21 +993,9 @@
                 }
             }
 
-            showTestNotification() {
-                if (Notification.permission === 'granted') {
-                    const notification = new Notification('ФИЕСТА 🎉', {
-                        body: 'Спасибо за подписку! Вы будете получать уведомления о новых вечеринках.',
-                        icon: 'https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0',
-                        tag: 'fiesta-welcome'
-                    });
-
-                    setTimeout(() => notification.close(), 5000);
-                }
-            }
-
             showStatus(message, type) {
                 this.statusDiv.innerHTML = `
-                    <div class="notification-permission" style="border-color: ${type === 'success' ? '#00ff00' : '#ff4444'};">
+                    <div class="notification-permission">
                         <p>${message}</p>
                     </div>
                 `;
@@ -891,6 +1046,9 @@
             createParticles();
             new NotificationManager();
         });
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
