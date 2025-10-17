@@ -236,6 +236,21 @@
             animation: successPulse 0.5s ease-in-out;
         }
 
+        /* Таймер авторизации */
+        #authTimer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: #666;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 10000;
+            display: none;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
         /* Клубная загрузка - ЧЕРНЫЙ ПРЕМИУМ СТИЛЬ */
         .club-loading {
             position: fixed;
@@ -746,17 +761,17 @@
             background-clip: text;
             margin-bottom: 1rem;
             text-shadow: 
-                0 0 30px rgba(138, 43, 226, 0.5),
-                0 0 60px rgba(255, 0, 128, 0.3);
+                0 0 30px rgba(255, 255, 255, 0.5),
+                0 0 60px rgba(255, 255, 255, 0.3);
             animation: glow 3s ease-in-out infinite alternate;
         }
 
         @keyframes glow {
             from {
-                filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.5));
+                filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
             }
             to {
-                filter: drop-shadow(0 0 40px rgba(255, 0, 128, 0.7));
+                filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.7));
             }
         }
 
@@ -1535,7 +1550,7 @@
     </style>
 </head>
 <body>
-   <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
+    <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
 <div class="secret-auth" id="secretAuth">
     <div class="secret-overlay">
         <div class="secret-container">
@@ -1574,6 +1589,11 @@
         </div>
     </div>
 </div>
+
+    <!-- Таймер авторизации -->
+    <div id="authTimer">
+        Авторизация: <span id="timerValue">60</span>с
+    </div>
 
     <!-- Клубная загрузка - ЧЕРНЫЙ ПРЕМИУМ СТИЛЬ -->
     <div class="club-loading" id="clubLoading">
@@ -1909,25 +1929,66 @@
     </main>
 
     <script>
-        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА
         // Проверяем, была ли недавняя авторизация
-function checkRecentAuth() {
-    const authTime = localStorage.getItem('fiestaAuthTime');
-    const isAuthenticated = localStorage.getItem('fiestaAuthenticated');
-    
-    if (isAuthenticated && authTime) {
-        const timePassed = Date.now() - parseInt(authTime);
-        // 60000 = 1 минута в миллисекундах
-        if (timePassed < 60000) {
-            return true;
+        function checkRecentAuth() {
+            const authTime = localStorage.getItem('fiestaAuthTime');
+            const isAuthenticated = localStorage.getItem('fiestaAuthenticated');
+            
+            if (isAuthenticated && authTime) {
+                const timePassed = Date.now() - parseInt(authTime);
+                const timeLeft = 60000 - timePassed;
+                
+                if (timeLeft > 0) {
+                    // Если время еще есть, запускаем таймер
+                    setTimeout(() => {
+                        startAuthTimer();
+                        // Устанавливаем начальное значение таймера
+                        const secondsLeft = Math.ceil(timeLeft / 1000);
+                        const timerValue = document.getElementById('timerValue');
+                        if (timerValue) {
+                            timerValue.textContent = secondsLeft;
+                        }
+                    }, 100);
+                    return true;
+                }
+            }
+            
+            // Если время вышло, очищаем данные
+            localStorage.removeItem('fiestaAuthTime');
+            localStorage.removeItem('fiestaAuthenticated');
+            return false;
         }
-    }
-    
-    // Если время вышло, очищаем данные
-    localStorage.removeItem('fiestaAuthTime');
-    localStorage.removeItem('fiestaAuthenticated');
-    return false;
-}
+
+        // Таймер обратного отсчета авторизации
+        function startAuthTimer() {
+            const timerElement = document.getElementById('authTimer');
+            const timerValue = document.getElementById('timerValue');
+            
+            if (!timerElement || !timerValue) return;
+            
+            let timeLeft = 60; // 60 секунд
+            
+            timerElement.style.display = 'block';
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerValue.textContent = timeLeft;
+                
+                if (timeLeft <= 10) {
+                    timerElement.style.color = '#ff4444';
+                }
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timerElement.style.display = 'none';
+                    // Очищаем данные авторизации
+                    localStorage.removeItem('fiestaAuthTime');
+                    localStorage.removeItem('fiestaAuthenticated');
+                }
+            }, 1000);
+        }
+
+        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА
         class SecretAuth {
             constructor() {
                 this.secretCode = "ФИЕСТАСЗН2026";
@@ -2025,18 +2086,22 @@ function checkRecentAuth() {
             }
 
             grantAccess() {
-    // Сохраняем время успешной авторизации
-    localStorage.setItem('fiestaAuthTime', Date.now());
-    localStorage.setItem('fiestaAuthenticated', 'true');
-    
-    this.authElement.style.opacity = '0';
-    this.authElement.style.transform = 'scale(1.1)';
-    
-    setTimeout(() => {
-        this.authElement.style.display = 'none';
-        initClubLoading();
-    }, 500);
-}
+                // Сохраняем время успешной авторизации
+                localStorage.setItem('fiestaAuthTime', Date.now());
+                localStorage.setItem('fiestaAuthenticated', 'true');
+                
+                // Запускаем таймер
+                startAuthTimer();
+                
+                this.authElement.style.opacity = '0';
+                this.authElement.style.transform = 'scale(1.1)';
+                
+                setTimeout(() => {
+                    this.authElement.style.display = 'none';
+                    initClubLoading();
+                }, 500);
+            }
+        }
 
         // Клубная загрузка
         function initClubLoading() {
@@ -2286,18 +2351,6 @@ function checkRecentAuth() {
             });
         });
 
-        // Инициализация системы авторизации при загрузке
-document.addEventListener('DOMContentLoaded', () => {
-    if (checkRecentAuth()) {
-        // Пропускаем авторизацию
-        document.getElementById('secretAuth').style.display = 'none';
-        initClubLoading();
-    } else {
-        // Показываем форму авторизации
-        new SecretAuth();
-    }
-});
-
         // Запуск остального функционала после авторизации
         function initSiteAfterAuth() {
             createParticles();
@@ -2316,6 +2369,18 @@ document.addEventListener('DOMContentLoaded', () => {
             originalInitClubLoading();
             setTimeout(initSiteAfterAuth, 3500);
         };
+
+        // Инициализация системы авторизации при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            if (checkRecentAuth()) {
+                // Пропускаем авторизацию
+                document.getElementById('secretAuth').style.display = 'none';
+                initClubLoading();
+            } else {
+                // Показываем форму авторизации
+                new SecretAuth();
+            }
+        });
     </script>
 </body>
 </html>
