@@ -1103,6 +1103,69 @@
             color: rgba(255, 255, 255, 0.8);
         }
 
+        /* Стили для плашки с описанием диджеев */
+        .dj-description-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.95) 30%, rgba(0, 0, 0, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            padding: 2rem 2.5rem;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            border-radius: 0 0 20px 20px;
+            z-index: 2;
+        }
+
+        .dj-card {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 1rem;
+        }
+
+        .dj-card:hover .dj-description-panel {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .description-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Улучшаем внешний вид карточек при наведении */
+        .dj-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-pink);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 0, 128, 0.3);
+        }
+
+        /* Анимация появления контента */
+        .dj-description-panel .dj-info,
+        .dj-description-panel .dj-style {
+            animation: slideUpFade 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .dj-description-panel .dj-info:nth-child(1) { animation-delay: 0.1s; }
+        .dj-description-panel .dj-info:nth-child(2) { animation-delay: 0.2s; }
+        .dj-description-panel .dj-style:nth-child(3) { animation-delay: 0.3s; }
+        .dj-description-panel .dj-style:nth-child(4) { animation-delay: 0.4s; }
+        .dj-description-panel .dj-style:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideUpFade {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .dj-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1137,14 +1200,6 @@
 
         .dj-card:hover::before {
             opacity: 1;
-        }
-
-        .dj-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-pink);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 30px rgba(255, 0, 128, 0.3);
         }
 
         .dj-name {
@@ -1384,6 +1439,15 @@
             .secret-glitch {
                 font-size: 2rem;
             }
+
+            /* Адаптация для плашки диджеев на мобильных */
+            .dj-description-panel {
+                padding: 1.5rem;
+            }
+
+            .dj-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1441,6 +1505,15 @@
                 width: 10px;
                 height: 10px;
             }
+
+            /* Адаптация для плашки диджеев на маленьких экранах */
+            .dj-description-panel {
+                padding: 1rem;
+            }
+
+            .dj-card {
+                padding: 1.5rem;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -1462,7 +1535,7 @@
     </style>
 </head>
 <body>
-    <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
+   <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
 <div class="secret-auth" id="secretAuth">
     <div class="secret-overlay">
         <div class="secret-container">
@@ -1677,11 +1750,17 @@
                     </div>
                     <h3 class="dj-name">TRPMLY</h3>
                     <div class="dj-alias">Трампли</div>
-                    <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
-                    <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
-                    <div class="dj-style">⚡ Энергичный бит</div>
-                    <div class="dj-style">🎛️ Чистый звук</div>
-                    <div class="dj-style">🔥 Горячие миксы</div>
+                    
+                    <!-- Плашка с описанием -->
+                    <div class="dj-description-panel">
+                        <div class="description-content">
+                            <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
+                            <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
+                            <div class="dj-style">⚡ Энергичный бит</div>
+                            <div class="dj-style">🎛️ Чистый звук</div>
+                            <div class="dj-style">🔥 Горячие миксы</div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="dj-card event-card-3d">
@@ -1690,11 +1769,17 @@
                     </div>
                     <h3 class="dj-name">PEREPIXON</h3>
                     <div class="dj-alias">Перепихон</div>
-                    <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
-                    <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
-                    <div class="dj-style">🎧 Глубокий саунд</div>
-                    <div class="dj-style">🌀 Прогрессивные волны</div>
-                    <div class="dj-style">🎵 Экспериментальные миксы</div>
+                    
+                    <!-- Плашка с описанием -->
+                    <div class="dj-description-panel">
+                        <div class="description-content">
+                            <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
+                            <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
+                            <div class="dj-style">🎧 Глубокий саунд</div>
+                            <div class="dj-style">🌀 Прогрессивные волны</div>
+                            <div class="dj-style">🎵 Экспериментальные миксы</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1828,7 +1913,6 @@
         class SecretAuth {
             constructor() {
                 this.secretCode = "ФИЕСТАСЗН2026";
-
                 this.currentInput = "";
                 this.authElement = document.getElementById('secretAuth');
                 this.codeInput = document.getElementById('secretInput');
