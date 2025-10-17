@@ -4,6 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ФИЕСТА | Клубные вечеринки</title>
+    /* ФИКС ДЛЯ ВЕРХНЕГО МЕНЮ НА МОБИЛКАХ */
+@media (max-width: 768px) {
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--glass-border);
+        z-index: 1000;
+        padding: 1rem;
+        height: 70px;
+    }
+
+    .hero {
+        padding-top: 8rem;
+        margin-top: 70px;
+    }
+
+    .main {
+        padding-top: 70px;
+    }
+
+    .nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 5px;
+        gap: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .nav a {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .logo {
+        height: 30px;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    #upcoming,
+    #djs,
+    #past,
+    #gallery,
+    #contacts {
+        scroll-margin-top: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        height: 60px;
+        padding: 0.8rem;
+    }
+
+    .hero {
+        padding-top: 7rem;
+        margin-top: 60px;
+    }
+
+    .main {
+        padding-top: 60px;
+    }
+
+    .nav a {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+
+    #upcoming,
+    #djs,
+    #past,
+    #gallery,
+    #contacts {
+        scroll-margin-top: 70px;
+    }
+}
     <style>
         <link rel="stylesheet" href="3d-cards.css">
         * {
