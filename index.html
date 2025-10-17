@@ -1910,6 +1910,24 @@
 
     <script>
         // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА
+        // Проверяем, была ли недавняя авторизация
+function checkRecentAuth() {
+    const authTime = localStorage.getItem('fiestaAuthTime');
+    const isAuthenticated = localStorage.getItem('fiestaAuthenticated');
+    
+    if (isAuthenticated && authTime) {
+        const timePassed = Date.now() - parseInt(authTime);
+        // 60000 = 1 минута в миллисекундах
+        if (timePassed < 60000) {
+            return true;
+        }
+    }
+    
+    // Если время вышло, очищаем данные
+    localStorage.removeItem('fiestaAuthTime');
+    localStorage.removeItem('fiestaAuthenticated');
+    return false;
+}
         class SecretAuth {
             constructor() {
                 this.secretCode = "ФИЕСТАСЗН2026";
@@ -2007,16 +2025,18 @@
             }
 
             grantAccess() {
-                this.authElement.style.opacity = '0';
-                this.authElement.style.transform = 'scale(1.1)';
-                
-                setTimeout(() => {
-                    this.authElement.style.display = 'none';
-                    // Запускаем обычную загрузку сайта
-                    initClubLoading();
-                }, 500);
-            }
-        }
+    // Сохраняем время успешной авторизации
+    localStorage.setItem('fiestaAuthTime', Date.now());
+    localStorage.setItem('fiestaAuthenticated', 'true');
+    
+    this.authElement.style.opacity = '0';
+    this.authElement.style.transform = 'scale(1.1)';
+    
+    setTimeout(() => {
+        this.authElement.style.display = 'none';
+        initClubLoading();
+    }, 500);
+}
 
         // Клубная загрузка
         function initClubLoading() {
@@ -2267,9 +2287,16 @@
         });
 
         // Инициализация системы авторизации при загрузке
-        document.addEventListener('DOMContentLoaded', () => {
-            new SecretAuth();
-        });
+document.addEventListener('DOMContentLoaded', () => {
+    if (checkRecentAuth()) {
+        // Пропускаем авторизацию
+        document.getElementById('secretAuth').style.display = 'none';
+        initClubLoading();
+    } else {
+        // Показываем форму авторизации
+        new SecretAuth();
+    }
+});
 
         // Запуск остального функционала после авторизации
         function initSiteAfterAuth() {
