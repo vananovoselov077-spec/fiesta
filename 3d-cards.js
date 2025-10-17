@@ -1,4 +1,4 @@
-// js/3d-cards.js
+// 3D ЭФФЕКТЫ ДЛЯ КАРТОЧЕК
 class Card3DEffect {
     constructor(card) {
         this.card = card;
@@ -25,21 +25,16 @@ class Card3DEffect {
         const rotateY = ((x - centerX) / centerX) * 10;
         const rotateX = ((centerY - y) / centerY) * 10;
         
-        this.card.style.transform = `
-            translateY(-20px) 
-            rotateX(${rotateX}deg) 
-            rotateY(${rotateY}deg)
-            scale(1.05)
-        `;
+        this.card.style.transform = 
+            `translateY(-20px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
 
         const shadowX = (x - centerX) / 10;
         const shadowY = (y - centerY) / 10;
         
-        this.card.style.boxShadow = `
-            ${shadowX}px ${shadowY}px 50px rgba(138, 43, 226, 0.4),
-            0 0 100px rgba(255, 0, 128, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2)
-        `;
+        this.card.style.boxShadow = 
+            `${shadowX}px ${shadowY}px 50px rgba(138, 43, 226, 0.4),
+             0 0 100px rgba(255, 0, 128, 0.3),
+             inset 0 1px 0 rgba(255, 255, 255, 0.2)`;
     }
 
     handleMouseEnter() {
@@ -55,15 +50,16 @@ class Card3DEffect {
     }
 }
 
-// Экспорт функции для инициализации
-function init3DCards() {
-    const cards = document.querySelectorAll('.event-card-3d');
-    cards.forEach(card => new Card3DEffect(card));
-    console.log('🎮 3D Cards initialized:', cards.length, 'cards');
-}
-
-// Автоматическая инициализация при загрузке DOM
+// Автоматически запускаем когда страница загрузится
 document.addEventListener('DOMContentLoaded', function() {
-    // Даем время на загрузку всех стилей
-    setTimeout(init3DCards, 100);
+    console.log('🚀 Загружаем 3D эффекты...');
+    
+    const cards = document.querySelectorAll('.event-card-3d');
+    console.log(`🎯 Найдено карточек: ${cards.length}`);
+    
+    cards.forEach(card => {
+        new Card3DEffect(card);
+    });
+    
+    console.log('✅ 3D эффекты включены!');
 });
