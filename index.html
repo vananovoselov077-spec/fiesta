@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ФИЕСТА | Клубные вечеринки</title>
     <style>
-        /* ТВОЙ ИСХОДНЫЙ CSS БЕЗ ИЗМЕНЕНИЙ */
         * {
             margin: 0;
             padding: 0;
@@ -30,6 +29,7 @@
             overflow-x: hidden;
         }
 
+        /* Анимированные частицы фона */
         .particles {
             position: fixed;
             top: 0;
@@ -55,7 +55,7 @@
             100% { transform: translateY(-100px) rotate(360deg); }
         }
 
-        /* iPhone popup стили - БЕЗ ИЗМЕНЕНИЙ */
+        /* iPhone popup стили */
         .iphone-popup {
             position: fixed;
             top: 0;
@@ -253,7 +253,7 @@
             }
         }
 
-        /* Остальные твои стили БЕЗ ИЗМЕНЕНИЙ */
+        /* Остальные стили */
         .header {
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
@@ -322,36 +322,39 @@
                 0 0 20px rgba(138, 43, 226, 0.2);
         }
 
+        /* ИСПРАВЛЕННЫЕ СТИЛИ VK ИКОНКИ */
         .nav-vk {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 44px;
             height: 44px;
-            background: var(--glass-bg);
+            background: linear-gradient(45deg, #0077ff, #0044ff);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(0, 119, 255, 0.3);
             border-radius: 12px;
             color: #fff;
             text-decoration: none;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-left: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 119, 255, 0.3);
         }
 
         .nav-vk:hover {
-            background: rgba(0, 119, 255, 0.2);
-            border-color: #0077ff;
+            background: linear-gradient(45deg, #0088ff, #0055ff);
+            border-color: #0099ff;
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 119, 255, 0.3);
-            color: #0077ff;
+            box-shadow: 0 8px 25px rgba(0, 119, 255, 0.5);
+            color: #fff;
         }
 
         .nav-vk svg {
             transition: transform 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .nav-vk:hover svg {
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
 
         .hero {
@@ -830,80 +833,7 @@
             background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
         }
 
-        @media (max-width: 768px) {
-            .nav {
-                flex-wrap: wrap;
-                gap: 0.5rem;
-            }
-            
-            .logo {
-                margin-right: 1rem;
-                height: 30px;
-            }
-            
-            .nav a {
-                padding: 0.6rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .event-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 8rem 1rem 4rem;
-            }
-            
-            .main {
-                padding: 0 1rem 2rem;
-            }
-
-            .dj-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .iphone-15-pro {
-                width: 280px;
-                height: 580px;
-            }
-
-            .counter-number {
-                font-size: 3rem;
-            }
-
-            .counter-text {
-                font-size: 1.2rem;
-            }
-
-            .event-poster {
-                height: 250px;
-            }
-
-            .countdown-timer {
-                gap: 0.5rem;
-            }
-            
-            .countdown-item {
-                padding: 1rem 0.5rem;
-                min-width: 70px;
-            }
-            
-            .countdown-number {
-                font-size: 2rem;
-            }
-            
-            .countdown-label {
-                font-size: 0.8rem;
-            }
-
-            .nav-vk {
-                margin-left: 0.5rem;
-                width: 40px;
-                height: 40px;
-            }
-        }
-
-        /* ДОБАВЛЯЕМ ТОЛЬКО ЭТИ НОВЫЕ СТИЛИ */
+        /* НОВЫЕ ДОБАВЛЕНИЯ */
 
         /* Анимированный счетчик */
         .counter-number.animated {
@@ -996,10 +926,104 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 136, 204, 0.4);
         }
+
+        /* Фикс для мобильных */
+        @media (max-width: 768px) {
+            .nav {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            
+            .logo {
+                margin-right: 1rem;
+                height: 30px;
+            }
+            
+            .nav a {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .event-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 8rem 1rem 4rem;
+            }
+            
+            .main {
+                padding: 0 1rem 2rem;
+            }
+
+            .dj-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .iphone-15-pro {
+                width: 280px;
+                height: 580px;
+            }
+
+            .counter-number {
+                font-size: 3rem;
+            }
+
+            .counter-text {
+                font-size: 1.2rem;
+            }
+
+            .event-poster {
+                height: 250px;
+            }
+
+            .countdown-timer {
+                gap: 0.5rem;
+            }
+            
+            .countdown-item {
+                padding: 1rem 0.5rem;
+                min-width: 70px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+
+            .nav-vk {
+                margin-left: 0.5rem;
+                width: 42px;
+                height: 42px;
+                background: linear-gradient(45deg, #0077ff, #0055ff);
+                box-shadow: 0 3px 10px rgba(0, 119, 255, 0.4);
+            }
+            
+            .nav-vk svg {
+                width: 22px;
+                height: 22px;
+            }
+
+            /* Фикс для чёлки на iOS */
+            @supports (padding: max(0px)) {
+                .header {
+                    padding-top: max(1rem, env(safe-area-inset-top));
+                    padding-left: max(2rem, env(safe-area-inset-left));
+                    padding-right: max(2rem, env(safe-area-inset-right));
+                }
+                
+                .hero {
+                    padding-top: max(12rem, calc(12rem + env(safe-area-inset-top)));
+                }
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ТВОЙ ИСХОДНЫЙ HTML БЕЗ ИЗМЕНЕНИЙ -->
+    <!-- iPhone Popup -->
     <div class="iphone-popup" id="iphonePopup">
         <div class="iphone-15-pro">
             <div class="iphone-frame">
@@ -1031,8 +1055,10 @@
         </div>
     </div>
 
+    <!-- Анимированные частицы -->
     <div class="particles" id="particles"></div>
 
+    <!-- Стеклянная шапка -->
     <header class="header">
         <nav class="nav">
             <img src="https://sun9-37.userapi.com/s/v1/ig2/K7Y9A8yakJK0Rg-3vMVZ6uG_fjdDba6UNEsIDwBXXOjhLC9WSubWbcU5pDv2SeIaAww6fEMRqO7xPArn3J3h68Ee.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&cs=1280x0" alt="ФИЕСТА" class="logo">
@@ -1041,6 +1067,7 @@
             <a href="#past">Прошедшие</a>
             <a href="#gallery">Галерея</a>
             <a href="#contacts">Контакты</a>
+            <!-- ИСПРАВЛЕННАЯ VK ИКОНКА -->
             <a href="https://vk.com/fiestatsk" target="_blank" class="nav-vk">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm2.65 14.75c-.38.95-.98 1.6-2.1 1.6-1.25 0-1.85-.88-2.65-1.9-.95 1.05-1.35 1.9-2.65 1.9-1.12 0-1.72-.65-2.1-1.6-1.05-2.63.6-6.35 3.75-6.35.9 0 1.55.35 2.1.9.55-.55 1.2-.9 2.1-.9 3.15 0 4.8 3.72 3.75 6.35z"/>
@@ -1049,10 +1076,12 @@
         </nav>
     </header>
 
+    <!-- Главный экран -->
     <section class="hero">
         <h1 class="fiesta-title">ФИЕСТА</h1>
         <p class="subtitle">Самые громкие вечеринки города</p>
         
+        <!-- Кнопка уведомлений -->
         <div id="notificationSection">
             <button class="notify-btn" id="enableNotifications">
                 🔔 Включить уведомления
@@ -1060,6 +1089,7 @@
             <div id="notificationStatus"></div>
         </div>
 
+        <!-- ТАЙМЕР ОБРАТНОГО ОТСЧЕТА -->
         <div class="countdown-section">
             <div class="countdown-title">До ONE AUTUMN PARTY осталось:</div>
             <div class="countdown-timer">
@@ -1083,7 +1113,9 @@
         </div>
     </section>
 
+    <!-- Основной контент -->
     <main class="main">
+        <!-- Ближайшие мероприятия -->
         <section id="upcoming" class="section">
             <h2 class="section-title">Ближайшие мероприятия</h2>
             <div class="event-grid">
@@ -1101,7 +1133,7 @@
             </div>
         </section>
 
-        <!-- ДОБАВЛЯЕМ СЕКЦИЮ TELEGRAM БОТА -->
+        <!-- ДОБАВЛЕННАЯ СЕКЦИЯ TELEGRAM БОТА -->
         <section class="section">
             <div class="telegram-bot-section fade-in">
                 <div class="telegram-icon">📱</div>
@@ -1140,9 +1172,11 @@
             </div>
         </section>
 
+        <!-- Наши диджеи -->
         <section id="djs" class="section">
             <h2 class="section-title">Наши диджеи</h2>
             <div class="dj-grid">
+                <!-- TRPMLY -->
                 <div class="dj-card">
                     <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
                         T
@@ -1156,6 +1190,7 @@
                     <div class="dj-style">🔥 Горячие миксы</div>
                 </div>
 
+                <!-- PEREPIXON -->
                 <div class="dj-card">
                     <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
                         P
@@ -1171,16 +1206,18 @@
             </div>
         </section>
 
+        <!-- ВСЕ ПРОШЕДШИЕ МЕРОПРИЯТИЯ ВОЗВРАЩЕНЫ -->
         <section id="past" class="section">
             <h2 class="section-title">Прошедшие мероприятия</h2>
             
+            <!-- Анимированный счетчик -->
             <div class="events-counter">
                 <span class="counter-number" id="eventsCounter">0</span>
                 <div class="counter-text">успешных вечеринок уже за нашими плечами! 🎉</div>
             </div>
 
             <div class="event-grid">
-                <!-- ТВОИ КАРТОЧКИ МЕРОПРИЯТИЙ -->
+                <!-- NEW YEAR PARTY -->
                 <div class="past-event-card">
                     <img src="https://sun9-19.userapi.com/s/v1/ig2/R74LnPrCVwfnDrcfPgqpTnwULLKGcYApOsGuHIpNmOW7oGJ4jymgm-rdSGGRv6aAtCm0SBGzOZkkkhiwzll9tiGe.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=3mK9SGJo59GC3xlZZk2zVSXMF1wR9OENKXcBgFjVNAQ&cs=640x0" alt="NEW YEAR PARTY" class="event-poster">
                     <div class="past-event-badge">ЗАВЕРШЕНО</div>
@@ -1195,10 +1232,99 @@
                     </a>
                 </div>
 
-                <!-- Остальные карточки... -->
+                <!-- SEASON25 PARTY -->
+                <div class="past-event-card">
+                    <img src="https://sun9-81.userapi.com/s/v1/ig2/e4gf0Kq448YrkNCznhvuKC9wIdmGkBbcF1LD1193VU_laq9z_mIXUbBdaV8tKyZe6n9WFLT1QS5oxPvjW6GkXZx7.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2000x2000&from=bu&u=EvCL2yInESJSfGcT_3VaWGn1HndtT21LHbRXqi3edcs&cs=640x0" alt="SEASON25 PARTY" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">SEASON25 PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 18 января</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_841" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- TINDER PARTY -->
+                <div class="past-event-card">
+                    <img src="https://sun9-85.userapi.com/s/v1/ig2/t3FtTQd54gaIXPETw4HGuBS0wn0R93ZBug7nxoKicGFETX2EWQfl1WGoOMxcDr_msKKF24a5BQJoicDNppp7hAYU.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=tCEmGnEUcJwe9wgHLgcP4aOCxgVanwtdth9gCWBVVh8&cs=640x0" alt="TINDER PARTY" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">TINDER PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 15 февраля</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1184" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- HIP HOP - FEST -->
+                <div class="past-event-card">
+                    <img src="https://sun9-73.userapi.com/s/v1/ig2/YsdLjFs4KQr1RB_jN8FhJYgy0ca5D6QzX6-zC_Qcx181ybsLwTIuKdcwXfzC4XzIImMws5Sa4H-st4M5n5IRkN7b.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=d8sFvvh0l34yc3UIyQMiHVm3LDG0Iv2mG1ztKDT6kOM&cs=640x0" alt="HIP HOP - FEST" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">HIP HOP - FEST</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 22 марта</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> FACE CLUB, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 14+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1372" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- CHILLOUT PARTY -->
+                <div class="past-event-card">
+                    <img src="https://sun9-43.userapi.com/s/v1/ig2/GKnMCmtEW1-DCJMMPFZ6MfUvxoHsIAws9imR2RlF1ly0vm92QhLs7HXJ-PimudQpOtL8rFdMzc9iB-s1LWRxswAn.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2560x2560&from=bu&u=TFG_s0EAyy3svx4VDYEcdNIn_gjqCRn5V4bXli43oD0&cs=640x0" alt="CHILLOUT PARTY" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">CHILLOUT PARTY</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 26 апреля</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00</p>
+                    <p class="event-info"><strong>📍 Место:</strong> EVENTY VIBE, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1467" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- СУДНЫЙ ДЕНЬ НОЧЬ -->
+                <div class="past-event-card">
+                    <img src="https://sun9-84.userapi.com/s/v1/ig2/_DW39iOVnvLHczeyzJn6-9L_QVUaboq0lE4vc15E0_8Pw7W1mLT6XxkhORky6uHIdpWjV9hjQAYIBM-ToLRYW9ca.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440,2560x2560&from=bu&u=lJxWrAfYz3uUXO667IkmXzjktFgRCl2Jd1sW8L3C1_0&cs=640x0" alt="СУДНЫЙ ДЕНЬ НОЧЬ" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">СУДНЫЙ ДЕНЬ НОЧЬ</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 16 мая</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 22:00 (EVENTY VIBE)</p>
+                    <p class="event-info"><strong>📍 Место:</strong> 22:00 - 12:00 (КОТТЕДЖ)</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 15+ (клуб), 17+ (коттедж)</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1552" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
+
+                <!-- TOTAL BLACK -->
+                <div class="past-event-card">
+                    <img src="https://sun9-61.userapi.com/s/v1/ig2/2h0FEJFKrFCVlA0aUDv11DZfB730rz3obQlinXrrxdnlc03oVsM7yceVnAvI8dwRDHj1FtonKFoHbEdqyYByC3TG.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&from=bu&u=TFflOBLZzpR1Atm1hOSChmeUwfFj7MD-LCLk-DiaHvw&cs=640x0" alt="TOTAL BLACK" class="event-poster">
+                    <div class="past-event-badge">ЗАВЕРШЕНО</div>
+                    <h3 class="past-event-name">TOTAL BLACK</h3>
+                    <p class="event-info"><strong>📅 Дата:</strong> 2 августа</p>
+                    <p class="event-info"><strong>⏰ Время:</strong> 18:00 - 21:30</p>
+                    <p class="event-info"><strong>📍 Место:</strong> Perk Up, Томск</p>
+                    <p class="event-info"><strong>🎯 Возраст:</strong> 14+</p>
+                    
+                    <a href="https://vk.com/wall-218082791_1606" target="_blank" class="past-btn">
+                        📷 Посмотреть фото
+                    </a>
+                </div>
             </div>
         </section>
 
+        <!-- Галерея -->
         <section id="gallery" class="section">
             <h2 class="section-title">Галерея</h2>
             <div class="content-section">
@@ -1206,6 +1332,7 @@
             </div>
         </section>
 
+        <!-- Контакты -->
         <section id="contacts" class="section">
             <h2 class="section-title">Контакты</h2>
             <div class="content-section">
@@ -1215,7 +1342,7 @@
     </main>
 
     <script>
-        // ТВОЙ ИСХОДНЫЙ JavaScript БЕЗ ИЗМЕНЕНИЙ
+        // ТВОЙ ИСХОДНЫЙ JavaScript
         function updateCountdown() {
             const eventDate = new Date('2025-10-18T18:00:00').getTime();
             const now = new Date().getTime();
@@ -1358,7 +1485,7 @@
             });
         });
 
-        // ДОБАВЛЯЕМ ТОЛЬКО ЭТИ НОВЫЕ ФУНКЦИИ
+        // ДОБАВЛЕННЫЕ ФУНКЦИИ
 
         // Анимированный счетчик
         function animateCounter() {
