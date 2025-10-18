@@ -152,7 +152,6 @@
         .hidden-input {
             position: absolute;
             opacity: 0;
-            pointer-events: none;
         }
 
         .input-glow {
@@ -1796,11 +1795,6 @@
         </div>
     </div>
 </div>
-            
-            <!-- ПОДСКАЗКА УБРАНА -->
-        </div>
-    </div>
-</div>
 
     <!-- Таймер авторизации -->
     <div id="authTimer">
@@ -2299,7 +2293,7 @@ class SecretAuth {
         }, 500);
     }
 }
-        }
+        
 
         // Клубная загрузка
         function initClubLoading() {
@@ -2547,20 +2541,7 @@ class SecretAuth {
                 top: 0,
                 behavior: 'smooth'
             });
-        });
-
-        // Запуск остального функционала после авторизации
-        function initSiteAfterAuth() {
-            createParticles();
-            new NotificationManager();
-            
-            setTimeout(animateCounter, 1000);
-            init3DCards();
-            
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
+        });        
         // Обновляем функцию initClubLoading чтобы она запускала остальной функционал
         const originalInitClubLoading = initClubLoading;
         initClubLoading = function() {
@@ -2600,18 +2581,17 @@ function initScrollToTop() {
         });
     });
 }
-
-// Добавь эту строку в функцию initSiteAfterAuth
-function initSiteAfterAuth() {
-    createParticles();
-    new NotificationManager();
-    
+  
     setTimeout(animateCounter, 1000);
     init3DCards();
     initScrollToTop(); // ← ДОБАВЬ ЭТУ СТРОЧКУ
     
     updateCountdown();
     setInterval(updateCountdown, 1000);
+}
+        // Функция для фокуса на поле ввода
+function focusInput() {
+    document.getElementById('secretInput').focus();
 }
     </script>
     <!-- Кнопка "Наверх" -->
