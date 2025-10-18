@@ -1726,6 +1726,45 @@
         height: 20px;
     }
 }
+        /* Видимый ввод кода */
+.visible-input {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--neon-cyan);
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: 'Courier New', monospace;
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.input-text {
+    color: var(--neon-cyan);
+}
+
+.input-cursor {
+    animation: blink 1s infinite;
+    color: var(--neon-cyan);
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Скрываем старые точки */
+.code-dots {
+    display: none;
+}
     </style>
 </head>
 <body>
@@ -1739,20 +1778,9 @@
             </div>
             
             <div class="code-input-container">
-                <div class="code-dots" id="codeDots">
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
-                    <div class="code-dot"></div>
+                <div class="visible-input" id="visibleInput">
+                    <span class="input-text" id="inputText"></span>
+                    <span class="input-cursor">|</span>
                 </div>
                 <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
                 <div class="input-glow"></div>
@@ -1762,9 +1790,7 @@
                 Введите секретный код доступа
             </div>
             
-            <div class="hint-text">
-                Подсказка: ФИЕСТА + СЕЗОН + ГОД
-            </div>
+            <!-- ПОДСКАЗКА УБРАНА -->
         </div>
     </div>
 </div>
@@ -2191,119 +2217,120 @@
             }, 1000);
         }
 
-        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА
-        class SecretAuth {
-            constructor() {
-                this.secretCode = "ФИЕСТАСЗН2026";
+        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА (ОБНОВЛЕННАЯ)
+class SecretAuth {
+    constructor() {
+        this.secretCode = "ФИЕСТАСЗН2026";
+        this.currentInput = "";
+        this.authElement = document.getElementById('secretAuth');
+        this.codeInput = document.getElementById('secretInput');
+        this.visibleInput = document.getElementById('inputText');
+        this.accessStatus = document.getElementById('accessStatus');
+        
+        this.init();
+    }
+
+    init() {
+        // Фокус на поле ввода при загрузке
+        setTimeout(() => {
+            this.codeInput.focus();
+        }, 1000);
+
+        // Обработка ввода
+        this.codeInput.addEventListener('input', (e) => {
+            this.handleInput(e.target.value);
+        });
+
+        // Обработка клавиш
+        document.addEventListener('keydown', (e) => {
+            this.handleKeyDown(e);
+        });
+
+        // Клик по overlay для фокуса
+        this.authElement.addEventListener('click', () => {
+            this.codeInput.focus();
+        });
+    }
+
+    handleInput(value) {
+        this.currentInput = value.toUpperCase();
+        this.updateVisibleInput();
+        this.checkCode();
+    }
+
+    handleKeyDown(e) {
+        if (e.key === 'Backspace') {
+            this.currentInput = this.currentInput.slice(0, -1);
+            this.codeInput.value = this.currentInput;
+            this.updateVisibleInput();
+        } else if (e.key === 'Enter') {
+            this.validateCode();
+        }
+    }
+
+    updateVisibleInput() {
+        // Показываем введенные символы
+        this.visibleInput.textContent = this.currentInput;
+        
+        // Добавляем мигающий курсор
+        const cursor = document.querySelector('.input-cursor');
+        if (cursor) {
+            cursor.style.display = 'inline';
+        }
+    }
+
+    checkCode() {
+        if (this.currentInput.length === this.secretCode.length) {
+            this.validateCode();
+        }
+    }
+
+    validateCode() {
+        if (this.currentInput === this.secretCode) {
+            this.accessStatus.textContent = "✓ ДОСТУП РАЗРЕШЕН";
+            this.accessStatus.classList.add('success');
+            this.accessStatus.classList.remove('error');
+            
+            // Анимация успеха
+            this.authElement.classList.add('success-pulse');
+            
+            // Переход на сайт
+            setTimeout(() => {
+                this.grantAccess();
+            }, 1500);
+        } else {
+            this.accessStatus.textContent = "✗ НЕВЕРНЫЙ КОД";
+            this.accessStatus.classList.add('error');
+            this.accessStatus.classList.remove('success');
+            
+            // Сброс ввода
+            setTimeout(() => {
                 this.currentInput = "";
-                this.authElement = document.getElementById('secretAuth');
-                this.codeInput = document.getElementById('secretInput');
-                this.codeDots = document.getElementById('codeDots');
-                this.accessStatus = document.getElementById('accessStatus');
-                
-                this.init();
-            }
+                this.codeInput.value = "";
+                this.updateVisibleInput();
+                this.accessStatus.textContent = "Введите секретный код доступа";
+                this.accessStatus.classList.remove('error');
+            }, 2000);
+        }
+    }
 
-            init() {
-                // Фокус на поле ввода при загрузке
-                setTimeout(() => {
-                    this.codeInput.focus();
-                }, 1000);
-
-                // Обработка ввода
-                this.codeInput.addEventListener('input', (e) => {
-                    this.handleInput(e.target.value);
-                });
-
-                // Обработка клавиш
-                document.addEventListener('keydown', (e) => {
-                    this.handleKeyDown(e);
-                });
-
-                // Клик по overlay для фокуса
-                this.authElement.addEventListener('click', () => {
-                    this.codeInput.focus();
-                });
-            }
-
-            handleInput(value) {
-                this.currentInput = value.toUpperCase();
-                this.updateDots();
-                this.checkCode();
-            }
-
-            handleKeyDown(e) {
-                if (e.key === 'Backspace') {
-                    this.currentInput = this.currentInput.slice(0, -1);
-                    this.codeInput.value = this.currentInput;
-                    this.updateDots();
-                } else if (e.key === 'Enter') {
-                    this.validateCode();
-                }
-            }
-
-            updateDots() {
-                const dots = this.codeDots.querySelectorAll('.code-dot');
-                dots.forEach((dot, index) => {
-                    if (index < this.currentInput.length) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            }
-
-            checkCode() {
-                if (this.currentInput.length === this.secretCode.length) {
-                    this.validateCode();
-                }
-            }
-
-            validateCode() {
-                if (this.currentInput === this.secretCode) {
-                    this.accessStatus.textContent = "✓ ДОСТУП РАЗРЕШЕН";
-                    this.accessStatus.classList.add('success');
-                    this.accessStatus.classList.remove('error');
-                    
-                    // Анимация успеха
-                    this.authElement.classList.add('success-pulse');
-                    
-                    // Переход на сайт
-                    setTimeout(() => {
-                        this.grantAccess();
-                    }, 1500);
-                } else {
-                    this.accessStatus.textContent = "✗ НЕВЕРНЫЙ КОД";
-                    this.accessStatus.classList.add('error');
-                    this.accessStatus.classList.remove('success');
-                    
-                    // Сброс ввода
-                    setTimeout(() => {
-                        this.currentInput = "";
-                        this.codeInput.value = "";
-                        this.updateDots();
-                        this.accessStatus.textContent = "Введите секретный код доступа";
-                        this.accessStatus.classList.remove('error');
-                    }, 2000);
-                }
-            }
-
-            grantAccess() {
-                // Сохраняем время успешной авторизации
-                localStorage.setItem('fiestaAuthTime', Date.now());
-                localStorage.setItem('fiestaAuthenticated', 'true');
-                
-                // Запускаем таймер
-                startAuthTimer();
-                
-                this.authElement.style.opacity = '0';
-                this.authElement.style.transform = 'scale(1.1)';
-                
-                setTimeout(() => {
-                    this.authElement.style.display = 'none';
-                    initClubLoading();
-                }, 500);
-            }
+    grantAccess() {
+        // Сохраняем время успешной авторизации
+        localStorage.setItem('fiestaAuthTime', Date.now());
+        localStorage.setItem('fiestaAuthenticated', 'true');
+        
+        // Запускаем таймер
+        startAuthTimer();
+        
+        this.authElement.style.opacity = '0';
+        this.authElement.style.transform = 'scale(1.1)';
+        
+        setTimeout(() => {
+            this.authElement.style.display = 'none';
+            initClubLoading();
+        }, 500);
+    }
+}
         }
 
         // Клубная загрузка
