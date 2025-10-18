@@ -1778,13 +1778,16 @@
             </div>
             
             <div class="code-input-container">
-                <div class="visible-input" id="visibleInput">
-                    <span class="input-text" id="inputText"></span>
-                    <span class="input-cursor">|</span>
-                </div>
-                <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
-                <div class="input-glow"></div>
-            </div>
+    <!-- ВИДИМОЕ ПОЛЕ ДЛЯ ТЕКСТА -->
+    <div class="visible-input" id="visibleInput">
+        <span class="input-text" id="inputText"></span>
+        <span class="input-cursor">|</span>
+    </div>
+    
+    <!-- СКРЫТОЕ ПОЛЕ ДЛЯ ВВОДА -->
+    <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
+    <div class="input-glow"></div>
+</div>
             
             <div class="access-status" id="accessStatus">
                 Введите секретный код доступа
