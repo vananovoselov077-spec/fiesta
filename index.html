@@ -1649,6 +1649,83 @@
         font-size: 0.9rem;
     }
 }
+        /* Кнопка "Наверх" */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    box-shadow: 
+        0 8px 30px rgba(138, 43, 226, 0.4),
+        0 0 20px rgba(255, 0, 128, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.scroll-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 
+        0 12px 40px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(255, 0, 128, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+}
+
+.scroll-to-top svg {
+    color: white;
+    width: 24px;
+    height: 24px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transition: transform 0.3s ease;
+}
+
+.scroll-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+    0% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
+    50% { box-shadow: 0 8px 40px rgba(138, 43, 226, 0.8); }
+    100% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
+}
+
+.scroll-to-top {
+    animation: pulse 2s infinite;
+}
+
+/* Для мобильных */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .scroll-to-top svg {
+        width: 20px;
+        height: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -2507,6 +2584,46 @@
                 new SecretAuth();
             }
         });
+        // Кнопка "Наверх"
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTop');
+    
+    // Показываем кнопку при прокрутке
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+    
+    // Плавная прокрутка наверх
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Добавь эту строку в функцию initSiteAfterAuth
+function initSiteAfterAuth() {
+    createParticles();
+    new NotificationManager();
+    
+    setTimeout(animateCounter, 1000);
+    init3DCards();
+    initScrollToTop(); // ← ДОБАВЬ ЭТУ СТРОЧКУ
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
     </script>
+    <!-- Кнопка "Наверх" -->
+<div class="scroll-to-top" id="scrollToTop">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 4l-8 8h5v8h6v-8h5l-8-8z"/>
+    </svg>
+</div>
 </body>
 </html>
