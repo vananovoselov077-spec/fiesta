@@ -1547,6 +1547,70 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
         }
+        /* Стили для телеграмм ссылок диджеев */
+.dj-telegram {
+    margin: 1.5rem 0 1rem;
+}
+
+.telegram-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(45deg, #0088cc, #00aced);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+}
+
+.telegram-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+    color: white;
+}
+
+.dj-telegram-panel {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.telegram-link-panel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0, 136, 204, 0.2);
+    color: #00aced;
+    padding: 0.7rem 1.3rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 136, 204, 0.3);
+}
+
+.telegram-link-panel:hover {
+    background: rgba(0, 136, 204, 0.3);
+    transform: translateY(-2px);
+    color: #00aced;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .telegram-link {
+        padding: 0.7rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .telegram-link-panel {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
     </style>
 </head>
 <body>
@@ -1762,47 +1826,71 @@
         </section>
 
         <section id="djs" class="section">
-            <h2 class="section-title">Наши диджеи</h2>
-            <div class="dj-grid">
-                <div class="dj-card event-card-3d">
-                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
-                        T
-                    </div>
-                    <h3 class="dj-name">TRPMLY</h3>
-                    <div class="dj-alias">Трампли</div>
-                    
-                    <!-- Плашка с описанием -->
-                    <div class="dj-description-panel">
-                        <div class="description-content">
-                            <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
-                            <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
-                            <div class="dj-style">⚡ Энергичный бит</div>
-                            <div class="dj-style">🎛️ Чистый звук</div>
-                            <div class="dj-style">🔥 Горячие миксы</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="dj-card event-card-3d">
-                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
-                        P
-                    </div>
-                    <h3 class="dj-name">PEREPIXON</h3>
-                    <div class="dj-alias">Перепихон</div>
-                    
-                    <!-- Плашка с описанием -->
-                    <div class="dj-description-panel">
-                        <div class="description-content">
-                            <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
-                            <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
-                            <div class="dj-style">🎧 Глубокий саунд</div>
-                            <div class="dj-style">🌀 Прогрессивные волны</div>
-                            <div class="dj-style">🎵 Экспериментальные миксы</div>
-                        </div>
+    <h2 class="section-title">Наши диджеи</h2>
+    <div class="dj-grid">
+        <div class="dj-card event-card-3d">
+            <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
+                T
+            </div>
+            <h3 class="dj-name">TRPMLY</h3>
+            <div class="dj-alias">Трампли</div>
+            
+            <!-- Телеграмм канал -->
+            <div class="dj-telegram">
+                <a href="https://t.me/trpmly" target="_blank" class="telegram-link">
+                    📱 @trpmly
+                </a>
+            </div>
+            
+            <!-- Плашка с описанием -->
+            <div class="dj-description-panel">
+                <div class="description-content">
+                    <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
+                    <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
+                    <div class="dj-style">⚡ Энергичный бит</div>
+                    <div class="dj-style">🎛️ Чистый звук</div>
+                    <div class="dj-style">🔥 Горячие миксы</div>
+                    <div class="dj-telegram-panel">
+                        <a href="https://t.me/trpmly" target="_blank" class="telegram-link-panel">
+                            💬 Telegram: @trpmly
+                        </a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <div class="dj-card event-card-3d">
+            <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
+                P
+            </div>
+            <h3 class="dj-name">PEREPIXON</h3>
+            <div class="dj-alias">Перепихон</div>
+            
+            <!-- Телеграмм канал -->
+            <div class="dj-telegram">
+                <a href="https://t.me/pere_pixon" target="_blank" class="telegram-link">
+                    📱 @pere_pixon
+                </a>
+            </div>
+            
+            <!-- Плашка с описанием -->
+            <div class="dj-description-panel">
+                <div class="description-content">
+                    <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
+                    <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
+                    <div class="dj-style">🎧 Глубокий саунд</div>
+                    <div class="dj-style">🌀 Прогрессивные волны</div>
+                    <div class="dj-style">🎵 Экспериментальные миксы</div>
+                    <div class="dj-telegram-panel">
+                        <a href="https://t.me/pere_pixon" target="_blank" class="telegram-link-panel">
+                            💬 Telegram: @pere_pixon
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section id="past" class="section">
             <h2 class="section-title">Прошедшие мероприятия</h2>
