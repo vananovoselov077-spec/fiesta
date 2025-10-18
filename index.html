@@ -127,31 +127,41 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .code-dots {
+        /* ВИДИМЫЙ ВВОД КОДА */
+        .visible-input {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            min-height: 80px;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 1rem;
+            position: relative;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px var(--neon-cyan);
+            cursor: text;
         }
 
-        .code-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+        .input-text {
+            color: var(--neon-cyan);
         }
 
-        .code-dot.active {
-            background: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-            transform: scale(1.2);
+        .input-cursor {
+            animation: blink 1s infinite;
+            color: var(--neon-cyan);
+            margin-left: 2px;
         }
 
         .hidden-input {
             position: absolute;
             opacity: 0;
+            pointer-events: none;
         }
 
         .input-glow {
@@ -229,6 +239,11 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         .success-pulse {
@@ -712,75 +727,58 @@
         }
 
         .nav-vk {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #0077ff, #0044ff, #0077ff);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-left: 1rem;
-    box-shadow: 
-        0 4px 20px rgba(0, 119, 255, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    position: relative;
-    overflow: hidden;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #0077ff, #0044ff, #0077ff);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-left: 1rem;
+            box-shadow: 
+                0 4px 20px rgba(0, 119, 255, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
 
-.nav-vk::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s;
-}
+        .nav-vk::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
 
-.nav-vk:hover::before {
-    left: 100%;
-}
-
-.nav-vk:hover {
-    background: linear-gradient(135deg, #0088ff, #0055ff, #0088ff);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px) scale(1.1);
-    box-shadow: 
-        0 8px 30px rgba(0, 136, 255, 0.7),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-}
-
-.nav-vk svg {
-    transition: all 0.3s ease;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    width: 22px;
-    height: 22px;
-}
-
-.nav-vk:hover svg {
-    transform: scale(1.2);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
-}
+        .nav-vk:hover::before {
+            left: 100%;
+        }
 
         .nav-vk:hover {
-            background: linear-gradient(45deg, #0088ff, #0055ff);
-            border-color: #0099ff;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 119, 255, 0.5);
-            color: #fff;
+            background: linear-gradient(135deg, #0088ff, #0055ff, #0088ff);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 
+                0 8px 30px rgba(0, 136, 255, 0.7),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
         }
 
         .nav-vk svg {
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            width: 22px;
+            height: 22px;
         }
 
         .nav-vk:hover svg {
             transform: scale(1.2);
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
         }
 
         .hero {
@@ -1397,6 +1395,121 @@
             padding: 2rem 0;
         }
 
+        /* Стили для телеграмм ссылок диджеев */
+        .dj-telegram {
+            margin: 1.5rem 0 1rem;
+        }
+
+        .telegram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, #0088cc, #00aced);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
+        }
+
+        .telegram-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
+            color: white;
+        }
+
+        .dj-telegram-panel {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .telegram-link-panel {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 136, 204, 0.2);
+            color: #00aced;
+            padding: 0.7rem 1.3rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 136, 204, 0.3);
+        }
+
+        .telegram-link-panel:hover {
+            background: rgba(0, 136, 204, 0.3);
+            transform: translateY(-2px);
+            color: #00aced;
+        }
+
+        /* Кнопка "Наверх" */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            box-shadow: 
+                0 8px 30px rgba(138, 43, 226, 0.4),
+                0 0 20px rgba(255, 0, 128, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 
+                0 12px 40px rgba(138, 43, 226, 0.6),
+                0 0 30px rgba(255, 0, 128, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+        }
+
+        .scroll-to-top svg {
+            color: white;
+            width: 24px;
+            height: 24px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .scroll-to-top:hover svg {
+            transform: translateY(-2px);
+        }
+
+        /* Анимация пульсации */
+        @keyframes pulse {
+            0% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
+            50% { box-shadow: 0 8px 40px rgba(138, 43, 226, 0.8); }
+            100% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
+        }
+
+        .scroll-to-top {
+            animation: pulse 2s infinite;
+        }
+
         /* ФИКС ДЛЯ МОБИЛЬНОГО МЕНЮ */
         @media (max-width: 768px) {
             .header {
@@ -1500,6 +1613,28 @@
             .dj-grid {
                 grid-template-columns: 1fr;
             }
+
+            .telegram-link {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .telegram-link-panel {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .scroll-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+            
+            .scroll-to-top svg {
+                width: 20px;
+                height: 20px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1549,15 +1684,6 @@
                 font-size: 1.5rem;
             }
 
-            .code-dots {
-                gap: 8px;
-            }
-
-            .code-dot {
-                width: 10px;
-                height: 10px;
-            }
-
             /* Адаптация для плашки диджеев на маленьких экранах */
             .dj-description-panel {
                 padding: 1rem;
@@ -1584,217 +1710,36 @@
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
         }
-        /* Стили для телеграмм ссылок диджеев */
-.dj-telegram {
-    margin: 1.5rem 0 1rem;
-}
-
-.telegram-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: linear-gradient(45deg, #0088cc, #00aced);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border-radius: 25px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 4px 15px rgba(0, 136, 204, 0.3);
-}
-
-.telegram-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5);
-    color: white;
-}
-
-.dj-telegram-panel {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.telegram-link-panel {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0, 136, 204, 0.2);
-    color: #00aced;
-    padding: 0.7rem 1.3rem;
-    border-radius: 20px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(0, 136, 204, 0.3);
-}
-
-.telegram-link-panel:hover {
-    background: rgba(0, 136, 204, 0.3);
-    transform: translateY(-2px);
-    color: #00aced;
-}
-
-/* Адаптация для мобильных */
-@media (max-width: 768px) {
-    .telegram-link {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
-    }
-    
-    .telegram-link-panel {
-        padding: 0.6rem 1rem;
-        font-size: 0.9rem;
-    }
-}
-        /* Кнопка "Наверх" */
-.scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    box-shadow: 
-        0 8px 30px rgba(138, 43, 226, 0.4),
-        0 0 20px rgba(255, 0, 128, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.scroll-to-top.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.scroll-to-top:hover {
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 
-        0 12px 40px rgba(138, 43, 226, 0.6),
-        0 0 30px rgba(255, 0, 128, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
-}
-
-.scroll-to-top svg {
-    color: white;
-    width: 24px;
-    height: 24px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-    transition: transform 0.3s ease;
-}
-
-.scroll-to-top:hover svg {
-    transform: translateY(-2px);
-}
-
-/* Анимация пульсации */
-@keyframes pulse {
-    0% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
-    50% { box-shadow: 0 8px 40px rgba(138, 43, 226, 0.8); }
-    100% { box-shadow: 0 8px 30px rgba(138, 43, 226, 0.4); }
-}
-
-.scroll-to-top {
-    animation: pulse 2s infinite;
-}
-
-/* Для мобильных */
-@media (max-width: 768px) {
-    .scroll-to-top {
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-    }
-    
-    .scroll-to-top svg {
-        width: 20px;
-        height: 20px;
-    }
-}
-        /* Видимый ввод кода */
-.visible-input {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: var(--neon-cyan);
-    text-align: center;
-    padding: 1.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    border: 1px solid var(--glass-border);
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    font-family: 'Courier New', monospace;
-    text-shadow: 0 0 10px var(--neon-cyan);
-}
-
-.input-text {
-    color: var(--neon-cyan);
-}
-
-.input-cursor {
-    animation: blink 1s infinite;
-    color: var(--neon-cyan);
-    margin-left: 2px;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-/* Скрываем старые точки */
-.code-dots {
-    display: none;
-}
     </style>
 </head>
 <body>
     <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
-<!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА (ИСПРАВЛЕННАЯ) -->
-<div class="secret-auth" id="secretAuth">
-    <div class="secret-overlay">
-        <div class="secret-container">
-            <div class="secret-header">
-                <div class="secret-glitch" data-text="БЕТА ДОСТУП">БЕТА ДОСТУП</div>
-                <div class="secret-subtitle">ТОЛЬКО ДЛЯ ОРГАНИЗАТОРОВ</div>
-            </div>
-            
-            <div class="code-input-container">
-                <!-- ВИДИМОЕ ПОЛЕ ДЛЯ ТЕКСТА -->
-                <div class="visible-input" id="visibleInput" onclick="focusInput()">
-                    <span class="input-text" id="inputText"></span>
-                    <span class="input-cursor">|</span>
+    <div class="secret-auth" id="secretAuth">
+        <div class="secret-overlay">
+            <div class="secret-container">
+                <div class="secret-header">
+                    <div class="secret-glitch" data-text="БЕТА ДОСТУП">БЕТА ДОСТУП</div>
+                    <div class="secret-subtitle">ТОЛЬКО ДЛЯ ОРГАНИЗАТОРОВ</div>
                 </div>
                 
-                <!-- СКРЫТОЕ ПОЛЕ ДЛЯ ВВОДА -->
-                <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
-                <div class="input-glow"></div>
-            </div>
-            
-            <div class="access-status" id="accessStatus">
-                Введите секретный код доступа
+                <div class="code-input-container">
+                    <!-- ВИДИМОЕ ПОЛЕ ДЛЯ ТЕКСТА -->
+                    <div class="visible-input" id="visibleInput" onclick="focusInput()">
+                        <span class="input-text" id="inputText"></span>
+                        <span class="input-cursor">|</span>
+                    </div>
+                    
+                    <!-- СКРЫТОЕ ПОЛЕ ДЛЯ ВВОДА -->
+                    <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
+                    <div class="input-glow"></div>
+                </div>
+                
+                <div class="access-status" id="accessStatus">
+                    Введите секретный код доступа
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Таймер авторизации -->
     <div id="authTimer">
@@ -1968,71 +1913,71 @@
         </section>
 
         <section id="djs" class="section">
-    <h2 class="section-title">Наши диджеи</h2>
-    <div class="dj-grid">
-        <div class="dj-card event-card-3d">
-            <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
-                T
-            </div>
-            <h3 class="dj-name">TRPMLY</h3>
-            <div class="dj-alias">Трампли</div>
-            
-            <!-- Телеграмм канал -->
-            <div class="dj-telegram">
-                <a href="https://t.me/trpmly" target="_blank" class="telegram-link">
-                    📱 @trpmlydj
-                </a>
-            </div>
-            
-            <!-- Плашка с описанием -->
-            <div class="dj-description-panel">
-                <div class="description-content">
-                    <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
-                    <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
-                    <div class="dj-style">⚡ Энергичный бит</div>
-                    <div class="dj-style">🎛️ Чистый звук</div>
-                    <div class="dj-style">🔥 Горячие миксы</div>
-                    <div class="dj-telegram-panel">
-                        <a href="https://t.me/trpmlydj" target="_blank" class="telegram-link-panel">
-                            💬 Telegram: @trpmlydj
+            <h2 class="section-title">Наши диджеи</h2>
+            <div class="dj-grid">
+                <div class="dj-card event-card-3d">
+                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-purple), var(--neon-blue));">
+                        T
+                    </div>
+                    <h3 class="dj-name">TRPMLY</h3>
+                    <div class="dj-alias">Трампли</div>
+                    
+                    <!-- Телеграмм канал -->
+                    <div class="dj-telegram">
+                        <a href="https://t.me/trpmly" target="_blank" class="telegram-link">
+                            📱 @trpmlydj
                         </a>
                     </div>
+                    
+                    <!-- Плашка с описанием -->
+                    <div class="dj-description-panel">
+                        <div class="description-content">
+                            <p class="dj-info">Мастер создания атмосферы. Его сет — это путешествие через биты и басы, которые заставляют танцевать до утра.</p>
+                            <p class="dj-info"><strong>Стиль:</strong> Bass House, Future House, Tech House</p>
+                            <div class="dj-style">⚡ Энергичный бит</div>
+                            <div class="dj-style">🎛️ Чистый звук</div>
+                            <div class="dj-style">🔥 Горячие миксы</div>
+                            <div class="dj-telegram-panel">
+                                <a href="https://t.me/trpmlydj" target="_blank" class="telegram-link-panel">
+                                    💬 Telegram: @trpmlydj
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="dj-card event-card-3d">
-            <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
-                P
-            </div>
-            <h3 class="dj-name">PEREPIXON</h3>
-            <div class="dj-alias">Перепихон</div>
-            
-            <!-- Телеграмм канал -->
-            <div class="dj-telegram">
-                <a href="https://t.me/djperepixon" target="_blank" class="telegram-link">
-                    📱 @djperepixon
-                </a>
-            </div>
-            
-            <!-- Плашка с описанием -->
-            <div class="dj-description-panel">
-                <div class="description-content">
-                    <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
-                    <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
-                    <div class="dj-style">🎧 Глубокий саунд</div>
-                    <div class="dj-style">🌀 Прогрессивные волны</div>
-                    <div class="dj-style">🎵 Экспериментальные миксы</div>
-                    <div class="dj-telegram-panel">
-                        <a href="https://t.me/pere_pixon" target="_blank" class="telegram-link-panel">
-                            💬 Telegram: @djperepixon
+                <div class="dj-card event-card-3d">
+                    <div class="dj-avatar" style="background: linear-gradient(45deg, var(--neon-pink), var(--neon-cyan));">
+                        P
+                    </div>
+                    <h3 class="dj-name">PEREPIXON</h3>
+                    <div class="dj-alias">Перепихон</div>
+                    
+                    <!-- Телеграмм канал -->
+                    <div class="dj-telegram">
+                        <a href="https://t.me/djperepixon" target="_blank" class="telegram-link">
+                            📱 @djperepixon
                         </a>
+                    </div>
+                    
+                    <!-- Плашка с описанием -->
+                    <div class="dj-description-panel">
+                        <div class="description-content">
+                            <p class="dj-info">Экспериментатор звука. Создает уникальные миксы, смешивая неожиданные треки и создавая неповторимую клубную магию.</p>
+                            <p class="dj-info"><strong>Стиль:</strong> Progressive House, Deep House, Electronic</p>
+                            <div class="dj-style">🎧 Глубокий саунд</div>
+                            <div class="dj-style">🌀 Прогрессивные волны</div>
+                            <div class="dj-style">🎵 Экспериментальные миксы</div>
+                            <div class="dj-telegram-panel">
+                                <a href="https://t.me/pere_pixon" target="_blank" class="telegram-link-panel">
+                                    💬 Telegram: @djperepixon
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <section id="past" class="section">
             <h2 class="section-title">Прошедшие мероприятия</h2>
@@ -2158,6 +2103,13 @@
         </section>
     </main>
 
+    <!-- Кнопка "Наверх" -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 4l-8 8h5v8h6v-8h5l-8-8z"/>
+        </svg>
+    </div>
+
     <script>
         // Проверяем, была ли недавняя авторизация
         function checkRecentAuth() {
@@ -2218,82 +2170,81 @@
             }, 1000);
         }
 
-        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА (ПРОСТАЯ РАБОЧАЯ)
-class SecretAuth {
-    constructor() {
-        this.secretCode = "ФИЕСТАСЗН2026";
-        this.currentInput = "";
-        this.authElement = document.getElementById('secretAuth');
-        this.codeInput = document.getElementById('secretInput');
-        this.visibleInput = document.getElementById('inputText');
-        this.accessStatus = document.getElementById('accessStatus');
-        
-        this.init();
-    }
-
-    init() {
-        // Автофокус при загрузке
-        setTimeout(() => {
-            this.codeInput.focus();
-        }, 1000);
-
-        // Обработка ввода
-        this.codeInput.addEventListener('input', (e) => {
-            this.currentInput = e.target.value.toUpperCase();
-            this.visibleInput.textContent = this.currentInput;
-            
-            if (this.currentInput.length === this.secretCode.length) {
-                this.validateCode();
-            }
-        });
-
-        // Обработка Backspace
-        this.codeInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace') {
-                setTimeout(() => {
-                    this.visibleInput.textContent = this.codeInput.value.toUpperCase();
-                }, 10);
-            }
-        });
-    }
-
-    validateCode() {
-        if (this.currentInput === this.secretCode) {
-            this.accessStatus.textContent = "✓ ДОСТУП РАЗРЕШЕН";
-            this.accessStatus.classList.add('success');
-            this.accessStatus.classList.remove('error');
-            
-            setTimeout(() => {
-                this.grantAccess();
-            }, 1500);
-        } else {
-            this.accessStatus.textContent = "✗ НЕВЕРНЫЙ КОД";
-            this.accessStatus.classList.add('error');
-            this.accessStatus.classList.remove('success');
-            
-            setTimeout(() => {
+        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА
+        class SecretAuth {
+            constructor() {
+                this.secretCode = "ФИЕСТАСЗН2026";
                 this.currentInput = "";
-                this.codeInput.value = "";
-                this.visibleInput.textContent = "";
-                this.accessStatus.textContent = "Введите секретный код доступа";
-                this.accessStatus.classList.remove('error');
-            }, 2000);
-        }
-    }
+                this.authElement = document.getElementById('secretAuth');
+                this.codeInput = document.getElementById('secretInput');
+                this.visibleInput = document.getElementById('inputText');
+                this.accessStatus = document.getElementById('accessStatus');
+                
+                this.init();
+            }
 
-    grantAccess() {
-        localStorage.setItem('fiestaAuthTime', Date.now());
-        localStorage.setItem('fiestaAuthenticated', 'true');
-        startAuthTimer();
-        
-        this.authElement.style.opacity = '0';
-        setTimeout(() => {
-            this.authElement.style.display = 'none';
-            initClubLoading();
-        }, 500);
-    }
-}
-        
+            init() {
+                // Автофокус при загрузке
+                setTimeout(() => {
+                    this.codeInput.focus();
+                }, 1000);
+
+                // Обработка ввода
+                this.codeInput.addEventListener('input', (e) => {
+                    this.currentInput = e.target.value.toUpperCase();
+                    this.visibleInput.textContent = this.currentInput;
+                    
+                    if (this.currentInput.length === this.secretCode.length) {
+                        this.validateCode();
+                    }
+                });
+
+                // Обработка Backspace
+                this.codeInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace') {
+                        setTimeout(() => {
+                            this.visibleInput.textContent = this.codeInput.value.toUpperCase();
+                        }, 10);
+                    }
+                });
+            }
+
+            validateCode() {
+                if (this.currentInput === this.secretCode) {
+                    this.accessStatus.textContent = "✓ ДОСТУП РАЗРЕШЕН";
+                    this.accessStatus.classList.add('success');
+                    this.accessStatus.classList.remove('error');
+                    
+                    setTimeout(() => {
+                        this.grantAccess();
+                    }, 1500);
+                } else {
+                    this.accessStatus.textContent = "✗ НЕВЕРНЫЙ КОД";
+                    this.accessStatus.classList.add('error');
+                    this.accessStatus.classList.remove('success');
+                    
+                    setTimeout(() => {
+                        this.currentInput = "";
+                        this.codeInput.value = "";
+                        this.visibleInput.textContent = "";
+                        this.accessStatus.textContent = "Введите секретный код доступа";
+                        this.accessStatus.classList.remove('error');
+                    }, 2000);
+                }
+            }
+
+            grantAccess() {
+                localStorage.setItem('fiestaAuthTime', Date.now());
+                localStorage.setItem('fiestaAuthenticated', 'true');
+                startAuthTimer();
+                
+                this.authElement.style.opacity = '0';
+                setTimeout(() => {
+                    this.authElement.style.display = 'none';
+                    initClubLoading();
+                }, 500);
+            }
+        }
 
         // Клубная загрузка
         function initClubLoading() {
@@ -2541,13 +2492,56 @@ class SecretAuth {
                 top: 0,
                 behavior: 'smooth'
             });
-        });        
-        // Обновляем функцию initClubLoading чтобы она запускала остальной функционал
-        const originalInitClubLoading = initClubLoading;
-        initClubLoading = function() {
-            originalInitClubLoading();
-            setTimeout(initSiteAfterAuth, 3500);
-        };
+        });
+
+        // Кнопка "Наверх"
+        function initScrollToTop() {
+            const scrollBtn = document.getElementById('scrollToTop');
+            
+            // Показываем кнопку при прокрутке
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            });
+            
+            // Плавная прокрутка наверх
+            scrollBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Функция для фокуса на поле ввода
+        function focusInput() {
+            document.getElementById('secretInput').focus();
+        }
+
+        // Инициализация всего сайта после авторизации
+        function initSiteAfterAuth() {
+            // Инициализация уведомлений
+            new NotificationManager();
+            
+            // Анимированный счетчик
+            setTimeout(animateCounter, 1000);
+            
+            // 3D эффекты для карточек
+            init3DCards();
+            
+            // Кнопка "Наверх"
+            initScrollToTop();
+            
+            // Таймер обратного отсчета
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Создание частиц
+            createParticles();
+        }
 
         // Инициализация системы авторизации при загрузке
         document.addEventListener('DOMContentLoaded', () => {
@@ -2560,45 +2554,6 @@ class SecretAuth {
                 new SecretAuth();
             }
         });
-        // Кнопка "Наверх"
-function initScrollToTop() {
-    const scrollBtn = document.getElementById('scrollToTop');
-    
-    // Показываем кнопку при прокрутке
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
-        } else {
-            scrollBtn.classList.remove('show');
-        }
-    });
-    
-    // Плавная прокрутка наверх
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-}
-  
-    setTimeout(animateCounter, 1000);
-    init3DCards();
-    initScrollToTop(); // ← ДОБАВЬ ЭТУ СТРОЧКУ
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-}
-        // Функция для фокуса на поле ввода
-function focusInput() {
-    document.getElementById('secretInput').focus();
-}
     </script>
-    <!-- Кнопка "Наверх" -->
-<div class="scroll-to-top" id="scrollToTop">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 4l-8 8h5v8h6v-8h5l-8-8z"/>
-    </svg>
-</div>
 </body>
 </html>
