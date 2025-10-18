@@ -1769,6 +1769,7 @@
 </head>
 <body>
     <!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА -->
+<!-- СЕКРЕТНАЯ СИСТЕМА ВХОДА (ИСПРАВЛЕННАЯ) -->
 <div class="secret-auth" id="secretAuth">
     <div class="secret-overlay">
         <div class="secret-container">
@@ -1778,20 +1779,23 @@
             </div>
             
             <div class="code-input-container">
-    <!-- ВИДИМОЕ ПОЛЕ ДЛЯ ТЕКСТА -->
-    <div class="visible-input" id="visibleInput">
-        <span class="input-text" id="inputText"></span>
-        <span class="input-cursor">|</span>
-    </div>
-    
-    <!-- СКРЫТОЕ ПОЛЕ ДЛЯ ВВОДА -->
-    <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
-    <div class="input-glow"></div>
-</div>
+                <!-- ВИДИМОЕ ПОЛЕ ДЛЯ ТЕКСТА -->
+                <div class="visible-input" id="visibleInput" onclick="focusInput()">
+                    <span class="input-text" id="inputText"></span>
+                    <span class="input-cursor">|</span>
+                </div>
+                
+                <!-- СКРЫТОЕ ПОЛЕ ДЛЯ ВВОДА -->
+                <input type="text" class="hidden-input" id="secretInput" maxlength="13" autocomplete="off">
+                <div class="input-glow"></div>
+            </div>
             
             <div class="access-status" id="accessStatus">
                 Введите секретный код доступа
             </div>
+        </div>
+    </div>
+</div>
             
             <!-- ПОДСКАЗКА УБРАНА -->
         </div>
