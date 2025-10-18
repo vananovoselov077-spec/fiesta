@@ -2224,7 +2224,7 @@
             }, 1000);
         }
 
-        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА (ОБНОВЛЕННАЯ)
+        // СИСТЕМА ПРОВЕРКИ СЕКРЕТНОГО КОДА (ПРОСТАЯ РАБОЧАЯ)
 class SecretAuth {
     constructor() {
         this.secretCode = "ФИЕСТАСЗН2026";
@@ -2238,58 +2238,29 @@ class SecretAuth {
     }
 
     init() {
-        // Фокус на поле ввода при загрузке
+        // Автофокус при загрузке
         setTimeout(() => {
             this.codeInput.focus();
         }, 1000);
 
         // Обработка ввода
         this.codeInput.addEventListener('input', (e) => {
-            this.handleInput(e.target.value);
+            this.currentInput = e.target.value.toUpperCase();
+            this.visibleInput.textContent = this.currentInput;
+            
+            if (this.currentInput.length === this.secretCode.length) {
+                this.validateCode();
+            }
         });
 
-        // Обработка клавиш
-        document.addEventListener('keydown', (e) => {
-            this.handleKeyDown(e);
+        // Обработка Backspace
+        this.codeInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace') {
+                setTimeout(() => {
+                    this.visibleInput.textContent = this.codeInput.value.toUpperCase();
+                }, 10);
+            }
         });
-
-        // Клик по overlay для фокуса
-        this.authElement.addEventListener('click', () => {
-            this.codeInput.focus();
-        });
-    }
-
-    handleInput(value) {
-        this.currentInput = value.toUpperCase();
-        this.updateVisibleInput();
-        this.checkCode();
-    }
-
-    handleKeyDown(e) {
-        if (e.key === 'Backspace') {
-            this.currentInput = this.currentInput.slice(0, -1);
-            this.codeInput.value = this.currentInput;
-            this.updateVisibleInput();
-        } else if (e.key === 'Enter') {
-            this.validateCode();
-        }
-    }
-
-    updateVisibleInput() {
-        // Показываем введенные символы
-        this.visibleInput.textContent = this.currentInput;
-        
-        // Добавляем мигающий курсор
-        const cursor = document.querySelector('.input-cursor');
-        if (cursor) {
-            cursor.style.display = 'inline';
-        }
-    }
-
-    checkCode() {
-        if (this.currentInput.length === this.secretCode.length) {
-            this.validateCode();
-        }
     }
 
     validateCode() {
@@ -2298,10 +2269,6 @@ class SecretAuth {
             this.accessStatus.classList.add('success');
             this.accessStatus.classList.remove('error');
             
-            // Анимация успеха
-            this.authElement.classList.add('success-pulse');
-            
-            // Переход на сайт
             setTimeout(() => {
                 this.grantAccess();
             }, 1500);
@@ -2310,11 +2277,10 @@ class SecretAuth {
             this.accessStatus.classList.add('error');
             this.accessStatus.classList.remove('success');
             
-            // Сброс ввода
             setTimeout(() => {
                 this.currentInput = "";
                 this.codeInput.value = "";
-                this.updateVisibleInput();
+                this.visibleInput.textContent = "";
                 this.accessStatus.textContent = "Введите секретный код доступа";
                 this.accessStatus.classList.remove('error');
             }, 2000);
@@ -2322,16 +2288,11 @@ class SecretAuth {
     }
 
     grantAccess() {
-        // Сохраняем время успешной авторизации
         localStorage.setItem('fiestaAuthTime', Date.now());
         localStorage.setItem('fiestaAuthenticated', 'true');
-        
-        // Запускаем таймер
         startAuthTimer();
         
         this.authElement.style.opacity = '0';
-        this.authElement.style.transform = 'scale(1.1)';
-        
         setTimeout(() => {
             this.authElement.style.display = 'none';
             initClubLoading();
